@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System;
+using Manager;
 
 public class DungeonScene : MonoBehaviour
 {
@@ -89,5 +90,6 @@ public class DungeonScene : MonoBehaviour
     {
         isGoal = true;
         goalObj.SetActive(true);
+        SoundManager.Instance.PlaySE(SEType.Goal);
     }
 }

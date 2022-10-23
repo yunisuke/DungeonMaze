@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Manager;
 
 public class TitleScene : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class TitleScene : MonoBehaviour
     void Awake()
     {
         FPSManager.Instance.Initialize ();
+        SoundManager.Instance.Initialize ();
     }
 
     public void OnClickTouchScreenView()
