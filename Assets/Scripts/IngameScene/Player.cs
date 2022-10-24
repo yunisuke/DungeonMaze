@@ -12,10 +12,12 @@ public class Player : MonoBehaviour
     public void GoAhead(UnityAction callback)
     {
         var seq = DOTween.Sequence();
-        seq.OnStart(() => IsMove = true);
+        seq.OnStart(() => {
+            IsMove = true;
+            SoundManager.Instance.PlaySE(SEType.Step);
+        });
         seq.Append(transform.DOLocalMove(transform.localPosition + transform.forward * 1, 0.3f).SetEase(Ease.Linear));
         seq.OnComplete(() => {
-            SoundManager.Instance.PlaySE(SEType.Step);
             IsMove = false;
             callback.Invoke();
         });
@@ -25,10 +27,12 @@ public class Player : MonoBehaviour
     public void GoBack(UnityAction callback)
     {
         var seq = DOTween.Sequence();
-        seq.OnStart(() => IsMove = true);
+        seq.OnStart(() => {
+            IsMove = true;
+            SoundManager.Instance.PlaySE(SEType.Step);
+        });
         seq.Append(transform.DOLocalMove(transform.localPosition - transform.forward * 1, 0.3f).SetEase(Ease.Linear));
         seq.OnComplete(() => {
-            SoundManager.Instance.PlaySE(SEType.Step);
             IsMove = false;
             callback.Invoke();
         });
@@ -62,11 +66,13 @@ public class Player : MonoBehaviour
     public void HitWallAhead()
     {
         var seq = DOTween.Sequence();
-        seq.OnStart(() => IsMove = true);
+        seq.OnStart(() => {
+            IsMove = true;
+            SoundManager.Instance.PlaySE(SEType.HitWall);
+        });
         seq.Append(transform.DOLocalMove(transform.localPosition + transform.forward * 1 * 0.2f, 0.1f).SetEase(Ease.Linear));
         seq.Append(transform.DOLocalMove(transform.localPosition, 0.1f).SetEase(Ease.Linear));
         seq.OnComplete(() => {
-            SoundManager.Instance.PlaySE(SEType.HitWall);
             IsMove = false;
         });
         seq.Play();
@@ -75,11 +81,13 @@ public class Player : MonoBehaviour
     public void HitWallBack()
     {
         var seq = DOTween.Sequence();
-        seq.OnStart(() => IsMove = true);
+        seq.OnStart(() => {
+            IsMove = true;
+            SoundManager.Instance.PlaySE(SEType.HitWall);
+        });
         seq.Append(transform.DOLocalMove(transform.localPosition - transform.forward * 1 * 0.2f, 0.1f).SetEase(Ease.Linear));
         seq.Append(transform.DOLocalMove(transform.localPosition, 0.1f).SetEase(Ease.Linear));
         seq.OnComplete(() => {
-            SoundManager.Instance.PlaySE(SEType.HitWall);
             IsMove = false;
         });
         seq.Play();
