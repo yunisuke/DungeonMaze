@@ -20,7 +20,7 @@ namespace UnityStandardAssets.Effects
         {
             if (m_Burning)
             {
-                m_Light.intensity = 4 * ((Mathf.PerlinNoise(Time.time, 0) + 1) / 2);
+                m_Light.intensity = 6 * ((Mathf.PerlinNoise(Time.time, 0) + 1) / 2);
             }
         }
 
