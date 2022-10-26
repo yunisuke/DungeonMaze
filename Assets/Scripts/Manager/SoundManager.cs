@@ -104,8 +104,8 @@ namespace Manager
         };
 
         private readonly string[] SE_Names = {
-            "Step_new",
-            "HitWall_new",
+            "Step",
+            "HitWall",
             "Goal",
         };
 

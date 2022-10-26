@@ -11,6 +11,8 @@ public class DungeonScene : MonoBehaviour
 
     [SerializeField] private GameObject goalObj;
 
+    [SerializeField] private MiniMap miniMap;
+
     private Map map;
     private bool isGoal = false;
 
@@ -22,6 +24,7 @@ public class DungeonScene : MonoBehaviour
 
         map = MapReader.ReadFile(IngameSceneParameter.SelectLevel);
         mk.MakeDungeon(map);
+        miniMap.UpdateMap(map);
     }
 
     void Update()
@@ -83,6 +86,7 @@ public class DungeonScene : MonoBehaviour
 
     private void AfterMove(Cell c)
     {
+        miniMap.UpdateMap(map);
         if (c.CellType == CellType.Goal) GoalEffect();
     }
 
