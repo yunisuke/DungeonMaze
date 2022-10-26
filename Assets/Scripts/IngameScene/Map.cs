@@ -98,6 +98,7 @@ public class Cell
 {
     public CellType CellType {get; private set;}
     private EventType eventType;
+    public bool IsOpen {get; set;}
 
     public Cell(CellType ct)
     {
