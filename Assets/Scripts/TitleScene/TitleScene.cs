@@ -13,6 +13,7 @@ public class TitleScene : MonoBehaviour
     {
         FPSManager.Instance.Initialize ();
         SoundManager.Instance.Initialize ();
+        AdManager.Instance.Initialize ();
     }
 
     public void OnClickTouchScreenView()

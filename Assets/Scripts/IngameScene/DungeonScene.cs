@@ -16,10 +16,16 @@ public class DungeonScene : MonoBehaviour
     private Map map;
     private bool isGoal = false;
 
+    void Awake()
+    {
+        FPSManager.Instance.Initialize ();
+        SoundManager.Instance.Initialize ();
+        AdManager.Instance.Initialize ();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        AdManager.Instance.Initialize ();
         AdManager.Instance.ShowAds();
 
         map = MapReader.ReadFile(IngameSceneParameter.SelectLevel);
