@@ -1,9 +1,9 @@
 {
     "m_SelectedDeviceId": "R3CT80Q304V",
     "m_SelectedPackage": {
-        "deviceId": "R3CT80Q304V",
-        "name": "com.DefaultCompany.DungeonMaze",
-        "processId": 3118,
+        "deviceId": "",
+        "name": "",
+        "processId": 0,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -11,116 +11,26 @@
         {
             "deviceId": "R3CT80Q304V",
             "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 14727,
-            "exited": true
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.sec.android.app.launcher",
-            "processId": 25390,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 737,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 4008,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 5598,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 6570,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 9321,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 9896,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 10876,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 15307,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 19752,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 20123,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 23120,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 26497,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 29015,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
-            "processId": 29334,
-            "exited": false
-        },
-        {
-            "deviceId": "R3CT80Q304V",
-            "name": "com.DefaultCompany.DungeonMaze",
             "processId": 31999,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CT80Q304V",
             "name": "com.DefaultCompany.DungeonMaze",
             "processId": 17995,
-            "exited": false
+            "exited": true
         },
         {
             "deviceId": "R3CT80Q304V",
             "name": "com.DefaultCompany.DungeonMaze",
             "processId": 3118,
-            "exited": false
+            "exited": true
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 14711,
+            "exited": true
         },
         {
             "deviceId": "988a9b37414753384f",
