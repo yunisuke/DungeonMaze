@@ -9,9 +9,10 @@ public class DungeonScene : MonoBehaviour
     [SerializeField] private DungeonMaker mk;
     [SerializeField] private Player pl;
 
-    [SerializeField] private GameObject goalObj;
+    [SerializeField] private GoalScreen goalScreen;
 
     [SerializeField] private MiniMap miniMap;
+    [SerializeField] private Timer timer;
 
     private Map map;
     private bool isGoal = false;
@@ -31,6 +32,10 @@ public class DungeonScene : MonoBehaviour
         map = MapReader.ReadFile(IngameSceneParameter.SelectLevel);
         mk.MakeDungeon(map);
         miniMap.UpdateMap(map);
+
+        timer.StartTimer();
+        timer.SetStar2Time(map.Star2);
+        timer.SetStar3Time(map.Star3);
     }
 
     void Update()
@@ -81,6 +86,7 @@ public class DungeonScene : MonoBehaviour
     public void OnClickReturnButton()
     {
         AdManager.Instance.HideAds();
+        AdManager.Instance.HideMediumAds();
         AdManager.Instance.ShowIntersitialAd(NextGame);
     }
 
@@ -99,7 +105,9 @@ public class DungeonScene : MonoBehaviour
     private void GoalEffect()
     {
         isGoal = true;
-        goalObj.SetActive(true);
+        timer.StopTimer();
+
+        goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
         SoundManager.Instance.PlaySE(SEType.Goal);
     }
 }

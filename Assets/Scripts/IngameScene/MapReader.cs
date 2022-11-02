@@ -51,7 +51,7 @@ public class MapReader
             y++;
         }
 
-        return new Map(maxX, maxY, cells, p);
+        return new Map(maxX, maxY, cells, p, mh.star2, mh.star3);
     }
 
     private static PlayerPosition SetPlayerPosition(int x, int y, string pd)
@@ -132,5 +132,7 @@ public class MapReader
     public class MapHeader
     {
         public string pd;
+        public float star2;
+        public float star3;
     }
 }

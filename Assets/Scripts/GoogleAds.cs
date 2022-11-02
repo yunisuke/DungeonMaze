@@ -28,6 +28,7 @@ public class GoogleAds : MonoBehaviour {
     #endif
 
     private BannerView bannerView;
+    private BannerView mediumBannerView;
     private InterstitialAd interstitialAd;
 
     public void RequestBanner()
@@ -54,6 +55,32 @@ public class GoogleAds : MonoBehaviour {
 
     public void ShowBannerView () {
         bannerView.Show ();
+    }
+
+    public void RequestMediumBanner()
+    {
+        // アプリID
+        // string appId = "ca-app-pub-9131760489850595~3015744991";
+
+        // Initialize the Google Mobile Ads SDK.
+        MobileAds.Initialize(initStatus => { });
+
+        // Create middle banner
+        mediumBannerView = new BannerView(AdUnitId, AdSize.MediumRectangle, AdPosition.Center);
+ 
+        // Create an empty ad request.
+        AdRequest request = new AdRequest.Builder().Build();
+ 
+        // Load the banner with the request.
+        mediumBannerView.LoadAd(request);
+    }
+
+    public void HideMediumBannerView () {
+        mediumBannerView.Hide ();
+    }
+
+    public void ShowMediumBannerView () {
+        mediumBannerView.Show ();
     }
 
     //広告を表示するメソッド

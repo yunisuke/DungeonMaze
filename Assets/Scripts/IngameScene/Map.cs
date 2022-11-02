@@ -8,13 +8,18 @@ public class Map
     public int Max_X {get; private set;}
     public int Max_Y {get; private set;}
     public PlayerPosition Position{get; private set;}
+    public float Star3 {get; private set;}
+    public float Star2 {get; private set;}
 
-    public Map(int maxX, int maxY, Cell[,] c, PlayerPosition p)
+    public Map(int maxX, int maxY, Cell[,] c, PlayerPosition p, float star2, float star3)
     {
         Max_X = maxX;
         Max_Y = maxY;
         Cells = c;
         Position = p;
+
+        Star2 = star2;
+        Star3 = star3;
     }
 
     public Cell TurnRightPlayer()

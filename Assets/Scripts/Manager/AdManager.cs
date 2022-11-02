@@ -29,10 +29,12 @@ public class AdManager
         }
 
         ads.RequestBanner ();
-        HideAds ();
+        ads.HideBannerView();
+
+        ads.RequestMediumBanner();
+        ads.HideMediumBannerView();
 
         ads.RequestInterstitial();
-
 
         isInitialized = true;
     }
@@ -43,6 +45,14 @@ public class AdManager
 
     public void ShowAds () {
         ads.ShowBannerView ();
+    }
+
+    public void HideMediumAds() {
+        ads.HideMediumBannerView();
+    }
+
+    public void ShowMediumAds() {
+        ads.ShowMediumBannerView();
     }
 
     public void ShowIntersitialAd (EventHandler<EventArgs> callback = null) {
