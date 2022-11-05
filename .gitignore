@@ -58,3 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+
+# asset store resources
+/[Aa]ssets/Z_resources/

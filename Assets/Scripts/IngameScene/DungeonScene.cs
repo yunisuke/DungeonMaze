@@ -9,19 +9,27 @@ public class DungeonScene : MonoBehaviour
     [SerializeField] private DungeonMaker mk;
     [SerializeField] private Player pl;
 
+    [Header("Screen")]
+    [SerializeField] private GameObject startScreen;
     [SerializeField] private GoalScreen goalScreen;
+    [SerializeField] private GameObject pauseScreen;
 
+    [Header("UI")]
     [SerializeField] private MiniMap miniMap;
     [SerializeField] private Timer timer;
+    [SerializeField] private GameObject controller;
 
     private Map map;
     private bool isGoal = false;
+    private bool isStart = false;
 
     void Awake()
     {
         FPSManager.Instance.Initialize ();
         SoundManager.Instance.Initialize ();
         AdManager.Instance.Initialize ();
+
+        controller.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -33,7 +41,6 @@ public class DungeonScene : MonoBehaviour
         mk.MakeDungeon(map);
         miniMap.UpdateMap(map);
 
-        timer.StartTimer();
         timer.SetStar2Time(map.Star2);
         timer.SetStar3Time(map.Star3);
     }
@@ -42,9 +49,10 @@ public class DungeonScene : MonoBehaviour
     {
         if (isNextScene) SceneManager.LoadScene("TitleScene");
 
+        if (!isStart || isGoal || pl.IsMove) return;
+
         if (Keyboard.current.upArrowKey.isPressed)
         {
-            if (pl.IsMove || isGoal) return;
             if (map.EnableMove(true) == false)
             {
                 pl.HitWallAhead();
@@ -57,7 +65,6 @@ public class DungeonScene : MonoBehaviour
 
         if (Keyboard.current.downArrowKey.isPressed)
         {
-            if (pl.IsMove || isGoal) return;
             if (map.EnableMove(false) == false)
             {
                 pl.HitWallBack();
@@ -70,17 +77,24 @@ public class DungeonScene : MonoBehaviour
 
         if (Keyboard.current.rightArrowKey.isPressed)
         {
-            if (pl.IsMove || isGoal) return;
             var c = map.TurnRightPlayer();
             pl.TurnRight(() => AfterMove(c));
         }
 
         if (Keyboard.current.leftArrowKey.isPressed)
         {
-            if (pl.IsMove || isGoal) return;
             var c = map.TurnLeftPlayer();
             pl.TurnLeft(() => AfterMove(c));
         }
+    }
+
+    public void OnClickStartButton()
+    {
+        startScreen.SetActive(false);
+        timer.StartTimer();
+        controller.SetActive(true);
+
+        isStart = true;
     }
 
     public void OnClickReturnButton()
@@ -88,6 +102,31 @@ public class DungeonScene : MonoBehaviour
         AdManager.Instance.HideAds();
         AdManager.Instance.HideMediumAds();
         AdManager.Instance.ShowIntersitialAd(NextGame);
+    }
+
+    public void OnClickRetryButton()
+    {
+        AdManager.Instance.HideAds();
+        AdManager.Instance.HideMediumAds();
+        SceneManager.LoadScene("IngameScene");
+    }
+
+    public void OnClickPauseButton()
+    {
+        AdManager.Instance.HideAds();
+        AdManager.Instance.ShowMediumAds();
+
+        timer.StopTimer();
+        pauseScreen.SetActive(true);
+    }
+
+    public void OnClickContinueButton()
+    {
+        AdManager.Instance.ShowAds();
+        AdManager.Instance.HideMediumAds();
+
+        timer.StartTimer();
+        pauseScreen.SetActive(false);
     }
 
     private bool isNextScene = false;
