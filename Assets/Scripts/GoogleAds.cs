@@ -93,9 +93,19 @@ public class GoogleAds : MonoBehaviour {
     }
 
     public void ShowIntersitialAd (EventHandler<EventArgs> callback = null) {
-        interstitialAd.Show();
-
         if (callback != null) interstitialAd.OnAdClosed += callback;
+        
+        if (interstitialAd.IsLoaded())
+        {
+            interstitialAd.Show();
+        }
+        else
+        {
+            interstitialAd.Destroy();
+            RequestInterstitial();
+
+            if (callback != null) callback.Invoke(null, null);
+        }
     }
 
     private void HandleOnAdClosed(object sender, EventArgs args)
