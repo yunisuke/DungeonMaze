@@ -29,6 +29,8 @@ public class DungeonScene : MonoBehaviour
         SoundManager.Instance.Initialize ();
         AdManager.Instance.Initialize ();
 
+        DataManager.Initialize();
+
         controller.SetActive(false);
     }
 
@@ -148,5 +150,7 @@ public class DungeonScene : MonoBehaviour
 
         goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
         SoundManager.Instance.PlaySE(SEType.Goal);
+
+        DataManager.Save(map.MapNo, timer.GetStar);
     }
 }

@@ -11,11 +11,11 @@ public class MapReader
         var fileName = level;
         TextAsset txt = Resources.Load("MapFile/" + fileName) as TextAsset;
 
-        var map = CreateMap(txt);
+        var map = CreateMap(level, txt);
         return map;
     }
 
-    private static Map CreateMap(TextAsset txt)
+    private static Map CreateMap(int level, TextAsset txt)
     {
         int maxX = GetMaxX(txt);
         int maxY = GetMaxY(txt);
@@ -51,7 +51,7 @@ public class MapReader
             y++;
         }
 
-        return new Map(maxX, maxY, cells, p, mh.star2, mh.star3);
+        return new Map(level, maxX, maxY, cells, p, mh.star2, mh.star3);
     }
 
     private static PlayerPosition SetPlayerPosition(int x, int y, string pd)

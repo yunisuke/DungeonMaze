@@ -14,6 +14,10 @@ public class TitleScene : MonoBehaviour
         FPSManager.Instance.Initialize ();
         SoundManager.Instance.Initialize ();
         AdManager.Instance.Initialize ();
+
+        DataManager.Initialize();
+
+        stageSelectView.GetComponent<StagePanel>().ButtonEvent = OnClickStartButton;
     }
 
     public void OnClickTouchScreenView()
