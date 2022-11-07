@@ -1120,6 +1120,11 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2478629365527763269, guid: b927b07ca1b0946a69e6cf155239cedb,
+        type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2478629365534000393, guid: b927b07ca1b0946a69e6cf155239cedb,
         type: 3}
       propertyPath: m_RootOrder

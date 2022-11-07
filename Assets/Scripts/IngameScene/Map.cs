@@ -117,6 +117,7 @@ public class Cell
 
 public enum CellType
 {
+    None, // 何もない
     Ground, // 地面
     Wall, // 壁。移動不可能
     Goal, // ゴール

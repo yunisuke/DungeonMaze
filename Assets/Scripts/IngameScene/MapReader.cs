@@ -84,6 +84,10 @@ public class MapReader
         int maxX = 0;
 
         StringReader reader = new StringReader(txt.text);
+
+        // ヘッダー抜き出し
+        reader.ReadLine();
+
         while (reader.Peek() != -1)
         {
             string line = reader.ReadLine();
@@ -94,7 +98,6 @@ public class MapReader
             }
             if (x > maxX) maxX = x;
         }
-
         return maxX;
     }
 
@@ -108,7 +111,6 @@ public class MapReader
             string line = reader.ReadLine();
             maxY++;
         }
-
         return maxY;
     }
 
@@ -116,6 +118,8 @@ public class MapReader
     {
         switch(c)
         {
+            case '-':
+                return new Cell(CellType.None);
             case 's':
                 return new Cell(CellType.Ground);
             case '#':

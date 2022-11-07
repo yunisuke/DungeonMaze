@@ -55,6 +55,8 @@ public class DungeonMaker : MonoBehaviour
                 GameObject obj;
                 switch(c.CellType)
                 {
+                    case CellType.None:
+                        break;
                     case CellType.Ground:
                         obj = GameObject.Instantiate(Ground);
                         obj.transform.position = new Vector3(x, 0, -y);
