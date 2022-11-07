@@ -31,6 +31,12 @@ public class TitleScene : MonoBehaviour
         IngameSceneParameter.SelectLevel = level;
         SceneManager.LoadSceneAsync("IngameScene");
     }
+
+    public void OnClickDeleteSave()
+    {
+        DataManager.DeleteData();
+        SceneManager.LoadScene("TitleScene");
+    }
 }
 
 public static class IngameSceneParameter

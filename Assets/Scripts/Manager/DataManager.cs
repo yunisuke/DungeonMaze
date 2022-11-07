@@ -20,6 +20,8 @@ namespace Manager
 
         public static void Save(int mapNo, int getStar)
         {
+            if (GetStageInfo(mapNo) >= getStar) return;
+
             clearData[mapNo] = new ClearData(mapNo, getStar);
             s.clearDataList = new List<ClearData>();
             foreach(var v in clearData.Values)
@@ -50,6 +52,13 @@ namespace Manager
                     clearData[v.StageNumber] = v;
                 }
             }
+        }
+
+        public static void DeleteData()
+        {
+            File.Delete(filePath);
+            clearData = new Dictionary<int, ClearData>();
+            s = new SaveData();
         }
 
         public static int GetStageInfo(int level)

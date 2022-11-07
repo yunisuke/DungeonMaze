@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R3CT80Q304V",
         "name": "com.DefaultCompany.DungeonMaze",
-        "processId": 24757,
+        "processId": 8826,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -84,6 +84,18 @@
             "deviceId": "R3CT80Q304V",
             "name": "com.DefaultCompany.DungeonMaze",
             "processId": 24757,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 30935,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 8826,
             "exited": false
         },
         {

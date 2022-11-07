@@ -131,6 +131,15 @@ public class DungeonScene : MonoBehaviour
         pauseScreen.SetActive(false);
     }
 
+    public void OnClickNextLevel()
+    {
+        IngameSceneParameter.SelectLevel++;
+
+        AdManager.Instance.HideAds();
+        AdManager.Instance.HideMediumAds();
+        SceneManager.LoadScene("IngameScene");
+    }
+
     private bool isNextScene = false;
     private void NextGame(object sender, EventArgs args)
     {
