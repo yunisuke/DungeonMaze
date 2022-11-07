@@ -43,6 +43,7 @@ public class DungeonScene : MonoBehaviour
         mk.MakeDungeon(map);
         miniMap.UpdateMap(map);
 
+        timer.SetFloorText(map.MapNo);
         timer.SetStar2Time(map.Star2);
         timer.SetStar3Time(map.Star3);
     }

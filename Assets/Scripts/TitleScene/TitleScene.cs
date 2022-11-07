@@ -41,5 +41,5 @@ public class TitleScene : MonoBehaviour
 
 public static class IngameSceneParameter
 {
-    public static int SelectLevel;
+    public static int SelectLevel = 1;
 }

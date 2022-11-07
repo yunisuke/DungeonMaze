@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerUi;
     [SerializeField] private TextMeshProUGUI star3;
     [SerializeField] private TextMeshProUGUI star2;
+    [SerializeField] private TextMeshProUGUI floor;
 
     [Header ("Debug")]
     [SerializeField] private float debugTime = 0f;
@@ -51,6 +52,11 @@ public class Timer : MonoBehaviour
     {
         star2Time = time;
         star2.text = ConvertTimeText(time);
+    }
+
+    public void SetFloorText(int floorNum)
+    {
+        floor.text = $"Floor {floorNum}";
     }
 
     public string TimeText
