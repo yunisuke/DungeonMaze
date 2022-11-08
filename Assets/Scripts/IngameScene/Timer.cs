@@ -56,7 +56,7 @@ public class Timer : MonoBehaviour
 
     public void SetFloorText(int floorNum)
     {
-        floor.text = $"Floor {floorNum}";
+        floor.text = floorNum.ToString();
     }
 
     public string TimeText

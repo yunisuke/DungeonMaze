@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System;
+using System.Linq;
 
 namespace Manager
 {
@@ -61,10 +62,15 @@ namespace Manager
             s = new SaveData();
         }
 
+        public static int GetClearStageMax()
+        {
+            if (clearData.Keys.Count == 0) return 0;
+            return clearData.Keys.Max();
+        }
+
         public static int GetStageInfo(int level)
         {
             if (clearData.ContainsKey(level) == false) return 0;
-            Debug.Log("level is " + clearData[level]);
             return clearData[level].GetStar;
         }
 

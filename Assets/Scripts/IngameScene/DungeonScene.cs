@@ -91,6 +91,19 @@ public class DungeonScene : MonoBehaviour
         }
     }
 
+    private bool IsPause()
+    {
+        return pauseScreen.activeSelf;
+    }
+
+    void OnApplicationFocus(bool isFocus)
+    {
+        if (isStart && isGoal == false && IsPause() == false && isFocus == false)
+        {
+            OnClickPauseButton();
+        }
+    }
+
     public void OnClickStartButton()
     {
         startScreen.SetActive(false);

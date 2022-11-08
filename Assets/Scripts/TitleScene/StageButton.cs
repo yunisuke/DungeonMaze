@@ -9,6 +9,7 @@ public class StageButton : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI noText;
     [SerializeField] private GameObject[] stars;
+    [SerializeField] private GameObject mask;
     [SerializeField] private Button button;
 
     public void SetButton(int stageNo, int getStar, UnityAction callback)
@@ -19,6 +20,14 @@ public class StageButton : MonoBehaviour
             stars[i].SetActive(true);
         }
 
-        button.onClick.AddListener(callback);
+        if (callback == null)
+        {
+            mask.SetActive(true);
+        }
+        else
+        {
+            mask.SetActive(false);
+            button.onClick.AddListener(callback);
+        }
     }
 }
