@@ -50,8 +50,6 @@ public class DungeonScene : MonoBehaviour
 
     void Update()
     {
-        if (isNextScene) SceneManager.LoadScene("TitleScene");
-
         if (!isStart || isGoal || pl.IsMove) return;
 
         if (Keyboard.current.upArrowKey.isPressed)
@@ -117,7 +115,6 @@ public class DungeonScene : MonoBehaviour
     {
         AdManager.Instance.HideAds();
         AdManager.Instance.HideMediumAds();
-        AdManager.Instance.ShowIntersitialAd(NextGame);
     }
 
     public void OnClickRetryButton()
@@ -152,12 +149,6 @@ public class DungeonScene : MonoBehaviour
         AdManager.Instance.HideAds();
         AdManager.Instance.HideMediumAds();
         SceneManager.LoadScene("IngameScene");
-    }
-
-    private bool isNextScene = false;
-    private void NextGame(object sender, EventArgs args)
-    {
-        isNextScene = true;
     }
 
     private void AfterMove(Cell c)

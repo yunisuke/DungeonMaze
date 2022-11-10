@@ -74,6 +74,7 @@ public class GoalScreen : MonoBehaviour
 
     private IEnumerator AfterEffect()
     {
+        AdManager.Instance.ShowIntersitialAd();
         footer.SetActive(true);
 
         yield return null;
