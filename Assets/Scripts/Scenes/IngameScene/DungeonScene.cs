@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Manager;
+using Scenes.TitleScene;
 
 namespace Scenes.IngameScene
 {

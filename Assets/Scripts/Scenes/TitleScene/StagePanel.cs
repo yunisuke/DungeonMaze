@@ -1,46 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
 using UnityEngine.Events;
 using Manager;
-using System;
 
-public class StagePanel : MonoBehaviour
+namespace Scenes.TitleScene
 {
-    [SerializeField] private StageButton buttonPrefab;
-    [SerializeField] private RectTransform buttonContainer;
-
-    public UnityAction<int> ButtonEvent;
-
-    void Awake()
+    public class StagePanel : MonoBehaviour
     {
-        SetStageSelectView();
-    }
+        [SerializeField] private StageButton buttonPrefab;
+        [SerializeField] private RectTransform buttonContainer;
 
-    public void SetStageSelectView()
-    {
-        TextAsset[] txt = Resources.LoadAll<TextAsset>("MapFile");
-        int clearNum = DataManager.GetClearStageMax();
+        public UnityAction<int> ButtonEvent;
 
-        for(int i=0; i<txt.Length; i++)
+        void Awake()
         {
-            var f = txt[i];
-            CreatePrefab(int.Parse(f.name), DataManager.GetStageInfo(int.Parse(f.name)), clearNum);
+            SetStageSelectView();
         }
-    }
 
-    private void CreatePrefab(int no, int getStar, int clearNum)
-    {
-        StageButton b = GameObject.Instantiate(buttonPrefab, buttonContainer);
-        
-        if (no > clearNum + 1)
+        public void SetStageSelectView()
         {
-            b.SetButton(no, getStar, null);
+            TextAsset[] txt = Resources.LoadAll<TextAsset>("MapFile");
+            int clearNum = DataManager.GetClearStageMax();
+
+            for(int i=0; i<txt.Length; i++)
+            {
+                var f = txt[i];
+                CreatePrefab(int.Parse(f.name), DataManager.GetStageInfo(int.Parse(f.name)), clearNum);
+            }
         }
-        else
+
+        private void CreatePrefab(int no, int getStar, int clearNum)
         {
-            b.SetButton(no, getStar, () => ButtonEvent.Invoke(no));
+            StageButton b = GameObject.Instantiate(buttonPrefab, buttonContainer);
+            
+            if (no > clearNum + 1)
+            {
+                b.SetButton(no, getStar, null);
+            }
+            else
+            {
+                b.SetButton(no, getStar, () => ButtonEvent.Invoke(no));
+            }
         }
     }
 }

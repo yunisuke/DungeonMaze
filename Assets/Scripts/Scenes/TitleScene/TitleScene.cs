@@ -1,45 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Manager;
 
-public class TitleScene : MonoBehaviour
+namespace Scenes.TitleScene
 {
-    [SerializeField] private GameObject touchScreenView;
-    [SerializeField] private GameObject stageSelectView;
-
-    void Awake()
+    public class TitleScene : MonoBehaviour
     {
-        FPSManager.Instance.Initialize ();
-        SoundManager.Instance.Initialize ();
-        AdManager.Instance.Initialize ();
+        [SerializeField] private GameObject touchScreenView;
+        [SerializeField] private GameObject stageSelectView;
 
-        DataManager.Initialize();
+        void Awake()
+        {
+            FPSManager.Instance.Initialize ();
+            SoundManager.Instance.Initialize ();
+            AdManager.Instance.Initialize ();
 
-        stageSelectView.GetComponent<StagePanel>().ButtonEvent = OnClickStartButton;
+            DataManager.Initialize();
+
+            stageSelectView.GetComponent<StagePanel>().ButtonEvent = OnClickStartButton;
+        }
+
+        public void OnClickTouchScreenView()
+        {
+            touchScreenView.SetActive(false);
+            stageSelectView.SetActive(true);
+        }
+
+        public void OnClickStartButton(int level)
+        {
+            IngameSceneParameter.SelectLevel = level;
+            SceneManager.LoadSceneAsync("IngameScene");
+        }
+
+        public void OnClickDeleteSave()
+        {
+            DataManager.DeleteData();
+            SceneManager.LoadScene("TitleScene");
+        }
     }
 
-    public void OnClickTouchScreenView()
+    public static class IngameSceneParameter
     {
-        touchScreenView.SetActive(false);
-        stageSelectView.SetActive(true);
+        public static int SelectLevel = 1;
     }
-
-    public void OnClickStartButton(int level)
-    {
-        IngameSceneParameter.SelectLevel = level;
-        SceneManager.LoadSceneAsync("IngameScene");
-    }
-
-    public void OnClickDeleteSave()
-    {
-        DataManager.DeleteData();
-        SceneManager.LoadScene("TitleScene");
-    }
-}
-
-public static class IngameSceneParameter
-{
-    public static int SelectLevel = 1;
 }
