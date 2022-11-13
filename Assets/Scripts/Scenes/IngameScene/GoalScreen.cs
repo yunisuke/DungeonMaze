@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
+using Manager;
 
 public class GoalScreen : MonoBehaviour
 {

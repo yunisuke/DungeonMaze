@@ -1,61 +1,65 @@
 using System;
 using UnityEngine;
+using Common.AdMob;
 
-public class AdManager
+namespace Manager
 {
-    private static AdManager _instance;
+    public class AdManager
+    {
+        private static AdManager _instance;
 
-    private GoogleAds ads;
+        private GoogleAds ads;
 
-    // 初期化フラグ
-    private bool isInitialized = false;
+        // 初期化フラグ
+        private bool isInitialized = false;
 
-    private AdManager () {
+        private AdManager () {
 
-    }
-
-    public static AdManager Instance {get {
-        if (_instance == null) _instance = new AdManager ();
-        return _instance;
-    }}
-
-    public void Initialize () {
-        if (isInitialized) return;
-
-        if (ads == null) {
-            var obj = new GameObject("AdMob");
-            GameObject.DontDestroyOnLoad(obj);
-            ads = obj.AddComponent<GoogleAds>();
         }
 
-        ads.RequestBanner ();
-        ads.HideBannerView();
+        public static AdManager Instance {get {
+            if (_instance == null) _instance = new AdManager ();
+            return _instance;
+        }}
 
-        ads.RequestMediumBanner();
-        ads.HideMediumBannerView();
+        public void Initialize () {
+            if (isInitialized) return;
 
-        ads.RequestInterstitial();
+            if (ads == null) {
+                var obj = new GameObject("AdMob");
+                GameObject.DontDestroyOnLoad(obj);
+                ads = obj.AddComponent<GoogleAds>();
+            }
 
-        isInitialized = true;
-    }
+            ads.RequestBanner ();
+            ads.HideBannerView();
 
-    public void HideAds () {
-        ads.HideBannerView ();
-    }
+            ads.RequestMediumBanner();
+            ads.HideMediumBannerView();
 
-    public void ShowAds () {
-        ads.ShowBannerView ();
-    }
+            ads.RequestInterstitial();
 
-    public void HideMediumAds() {
-        ads.HideMediumBannerView();
-    }
+            isInitialized = true;
+        }
 
-    public void ShowMediumAds() {
-        ads.ShowMediumBannerView();
-    }
+        public void HideAds () {
+            ads.HideBannerView ();
+        }
 
-    public void ShowIntersitialAd (EventHandler<EventArgs> callback = null) {
-        ads.ShowIntersitialAd(callback);
+        public void ShowAds () {
+            ads.ShowBannerView ();
+        }
+
+        public void HideMediumAds() {
+            ads.HideMediumBannerView();
+        }
+
+        public void ShowMediumAds() {
+            ads.ShowMediumBannerView();
+        }
+
+        public void ShowIntersitialAd (EventHandler<EventArgs> callback = null) {
+            ads.ShowIntersitialAd(callback);
+        }
     }
 }

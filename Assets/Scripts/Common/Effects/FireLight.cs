@@ -1,18 +1,15 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-namespace UnityStandardAssets.Effects
+namespace Common.Effects
 {
     public class FireLight : MonoBehaviour
     {
         private bool m_Burning = true;
-        private Light m_Light;
-
+        private UnityEngine.Light m_Light;
 
         private void Start()
         {
-            m_Light = GetComponent<Light>();
+            m_Light = GetComponent<UnityEngine.Light>();
         }
 
 
