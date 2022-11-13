@@ -1,39 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
-public class MiniMapCell : MonoBehaviour
+namespace Scenes.IngameScene
 {
-    private Image img;
-
-    [SerializeField] private Color wallColor;
-    [SerializeField] private Color groundColor;
-
-    void Awake()
+    [RequireComponent(typeof(Image))]
+    public class MiniMapCell : MonoBehaviour
     {
-        img = GetComponent<Image>();
-    }
+        private Image img;
 
-    public void DrawCell(CellType c)
-    {
-        switch(c)
+        [SerializeField] private Color wallColor;
+        [SerializeField] private Color groundColor;
+
+        void Awake()
         {
-        case CellType.Goal:
-            img.color = groundColor;
-            break;
-        case CellType.Ground:
-            img.color = groundColor;
-            break;
-        case CellType.Wall:
-            img.color = wallColor;
-            break;
+            img = GetComponent<Image>();
         }
-    }
 
-    public void ClearCell()
-    {
-        img.color = Color.black;
+        public void DrawCell(CellType c)
+        {
+            switch(c)
+            {
+            case CellType.Goal:
+                img.color = groundColor;
+                break;
+            case CellType.Ground:
+                img.color = groundColor;
+                break;
+            case CellType.Wall:
+                img.color = wallColor;
+                break;
+            }
+        }
+
+        public void ClearCell()
+        {
+            img.color = Color.black;
+        }
     }
 }

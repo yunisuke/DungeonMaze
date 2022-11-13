@@ -1,173 +1,175 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using System;
 using Manager;
 
-public class DungeonScene : MonoBehaviour
+namespace Scenes.IngameScene
 {
-    [SerializeField] private DungeonMaker mk;
-    [SerializeField] private Player pl;
-
-    [Header("Screen")]
-    [SerializeField] private GameObject startScreen;
-    [SerializeField] private GoalScreen goalScreen;
-    [SerializeField] private GameObject pauseScreen;
-
-    [Header("UI")]
-    [SerializeField] private MiniMap miniMap;
-    [SerializeField] private Timer timer;
-    [SerializeField] private GameObject controller;
-
-    private Map map;
-    private bool isGoal = false;
-    private bool isStart = false;
-
-    void Awake()
+    public class DungeonScene : MonoBehaviour
     {
-        FPSManager.Instance.Initialize ();
-        SoundManager.Instance.Initialize ();
-        AdManager.Instance.Initialize ();
+        [SerializeField] private DungeonMaker mk;
+        [SerializeField] private Player pl;
 
-        DataManager.Initialize();
+        [Header("Screen")]
+        [SerializeField] private GameObject startScreen;
+        [SerializeField] private GoalScreen goalScreen;
+        [SerializeField] private GameObject pauseScreen;
 
-        controller.SetActive(false);
-    }
+        [Header("UI")]
+        [SerializeField] private MiniMap miniMap;
+        [SerializeField] private Timer timer;
+        [SerializeField] private GameObject controller;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        AdManager.Instance.ShowAds();
+        private Map map;
+        private bool isGoal = false;
+        private bool isStart = false;
 
-        map = MapReader.ReadFile(IngameSceneParameter.SelectLevel);
-        mk.MakeDungeon(map);
-        miniMap.UpdateMap(map);
-
-        timer.SetFloorText(map.MapNo);
-        timer.SetStar2Time(map.Star2);
-        timer.SetStar3Time(map.Star3);
-
-        startScreen.SetActive(true);
-    }
-
-    void Update()
-    {
-        if (!isStart || isGoal || pl.IsMove) return;
-
-        if (Keyboard.current.upArrowKey.isPressed)
+        void Awake()
         {
-            if (map.EnableMove(true) == false)
+            FPSManager.Instance.Initialize ();
+            SoundManager.Instance.Initialize ();
+            AdManager.Instance.Initialize ();
+
+            DataManager.Initialize();
+
+            controller.SetActive(false);
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            AdManager.Instance.ShowAds();
+
+            map = MapReader.ReadFile(IngameSceneParameter.SelectLevel);
+            mk.MakeDungeon(map);
+            miniMap.UpdateMap(map);
+
+            timer.SetFloorText(map.MapNo);
+            timer.SetStar2Time(map.Star2);
+            timer.SetStar3Time(map.Star3);
+
+            startScreen.SetActive(true);
+        }
+
+        void Update()
+        {
+            if (!isStart || isGoal || pl.IsMove) return;
+
+            if (Keyboard.current.upArrowKey.isPressed)
             {
-                pl.HitWallAhead();
-                return;
+                if (map.EnableMove(true) == false)
+                {
+                    pl.HitWallAhead();
+                    return;
+                }
+
+                var c = map.MovePlayer(true);
+                pl.GoAhead(() => AfterMove(c));
             }
 
-            var c = map.MovePlayer(true);
-            pl.GoAhead(() => AfterMove(c));
-        }
-
-        if (Keyboard.current.downArrowKey.isPressed)
-        {
-            if (map.EnableMove(false) == false)
+            if (Keyboard.current.downArrowKey.isPressed)
             {
-                pl.HitWallBack();
-                return;
+                if (map.EnableMove(false) == false)
+                {
+                    pl.HitWallBack();
+                    return;
+                }
+
+                var c = map.MovePlayer(false);
+                pl.GoBack(() => AfterMove(c));
             }
 
-            var c = map.MovePlayer(false);
-            pl.GoBack(() => AfterMove(c));
+            if (Keyboard.current.rightArrowKey.isPressed)
+            {
+                var c = map.TurnRightPlayer();
+                pl.TurnRight(() => AfterMove(c));
+            }
+
+            if (Keyboard.current.leftArrowKey.isPressed)
+            {
+                var c = map.TurnLeftPlayer();
+                pl.TurnLeft(() => AfterMove(c));
+            }
         }
 
-        if (Keyboard.current.rightArrowKey.isPressed)
+        private bool IsPause()
         {
-            var c = map.TurnRightPlayer();
-            pl.TurnRight(() => AfterMove(c));
+            return pauseScreen.activeSelf;
         }
 
-        if (Keyboard.current.leftArrowKey.isPressed)
+        void OnApplicationFocus(bool isFocus)
         {
-            var c = map.TurnLeftPlayer();
-            pl.TurnLeft(() => AfterMove(c));
+            if (isStart && isGoal == false && IsPause() == false && isFocus == false)
+            {
+                OnClickPauseButton();
+            }
         }
-    }
 
-    private bool IsPause()
-    {
-        return pauseScreen.activeSelf;
-    }
-
-    void OnApplicationFocus(bool isFocus)
-    {
-        if (isStart && isGoal == false && IsPause() == false && isFocus == false)
+        public void OnClickStartButton()
         {
-            OnClickPauseButton();
+            startScreen.SetActive(false);
+            timer.StartTimer();
+            controller.SetActive(true);
+
+            isStart = true;
         }
-    }
 
-    public void OnClickStartButton()
-    {
-        startScreen.SetActive(false);
-        timer.StartTimer();
-        controller.SetActive(true);
+        public void OnClickReturnButton()
+        {
+            AdManager.Instance.HideAds();
+            AdManager.Instance.HideMediumAds();
+            SceneManager.LoadScene("TitleScene");
+        }
 
-        isStart = true;
-    }
+        public void OnClickRetryButton()
+        {
+            AdManager.Instance.HideAds();
+            AdManager.Instance.HideMediumAds();
+            SceneManager.LoadScene("IngameScene");
+        }
 
-    public void OnClickReturnButton()
-    {
-        AdManager.Instance.HideAds();
-        AdManager.Instance.HideMediumAds();
-        SceneManager.LoadScene("TitleScene");
-    }
+        public void OnClickPauseButton()
+        {
+            AdManager.Instance.HideAds();
+            AdManager.Instance.ShowMediumAds();
 
-    public void OnClickRetryButton()
-    {
-        AdManager.Instance.HideAds();
-        AdManager.Instance.HideMediumAds();
-        SceneManager.LoadScene("IngameScene");
-    }
+            timer.StopTimer();
+            pauseScreen.SetActive(true);
+        }
 
-    public void OnClickPauseButton()
-    {
-        AdManager.Instance.HideAds();
-        AdManager.Instance.ShowMediumAds();
+        public void OnClickContinueButton()
+        {
+            AdManager.Instance.ShowAds();
+            AdManager.Instance.HideMediumAds();
 
-        timer.StopTimer();
-        pauseScreen.SetActive(true);
-    }
+            timer.StartTimer();
+            pauseScreen.SetActive(false);
+        }
 
-    public void OnClickContinueButton()
-    {
-        AdManager.Instance.ShowAds();
-        AdManager.Instance.HideMediumAds();
+        public void OnClickNextLevel()
+        {
+            IngameSceneParameter.SelectLevel++;
 
-        timer.StartTimer();
-        pauseScreen.SetActive(false);
-    }
+            AdManager.Instance.HideAds();
+            AdManager.Instance.HideMediumAds();
+            SceneManager.LoadScene("IngameScene");
+        }
 
-    public void OnClickNextLevel()
-    {
-        IngameSceneParameter.SelectLevel++;
+        private void AfterMove(Cell c)
+        {
+            miniMap.UpdateMap(map);
+            if (c.CellType == CellType.Goal) GoalEffect();
+        }
 
-        AdManager.Instance.HideAds();
-        AdManager.Instance.HideMediumAds();
-        SceneManager.LoadScene("IngameScene");
-    }
+        private void GoalEffect()
+        {
+            isGoal = true;
+            timer.StopTimer();
 
-    private void AfterMove(Cell c)
-    {
-        miniMap.UpdateMap(map);
-        if (c.CellType == CellType.Goal) GoalEffect();
-    }
+            goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
+            SoundManager.Instance.PlaySE(SEType.Goal);
 
-    private void GoalEffect()
-    {
-        isGoal = true;
-        timer.StopTimer();
-
-        goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
-        SoundManager.Instance.PlaySE(SEType.Goal);
-
-        DataManager.Save(map.MapNo, timer.GetStar);
+            DataManager.Save(map.MapNo, timer.GetStar);
+        }
     }
 }

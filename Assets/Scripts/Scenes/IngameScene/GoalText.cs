@@ -1,25 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class GoalText : MonoBehaviour
+namespace Scenes.IngameScene
 {
-    [SerializeField] private float delay;
-
-    // Start is called before the first frame update
-    void Start()
+    public class GoalText : MonoBehaviour
     {
-        StartCoroutine(Animation());
-    }
+        [SerializeField] private float delay;
 
-    private IEnumerator Animation()
-    {
-        yield return new WaitForSeconds(delay);
+        // Start is called before the first frame update
+        void Start()
+        {
+            StartCoroutine(Animation());
+        }
 
-        var seq = DOTween.Sequence();
-        seq.AppendInterval(1f);
-        seq.Append(transform.DOLocalMoveY(0.3f, 0.3f));
-        seq.SetLoops(-1, LoopType.Yoyo);
+        private IEnumerator Animation()
+        {
+            yield return new WaitForSeconds(delay);
+
+            var seq = DOTween.Sequence();
+            seq.AppendInterval(1f);
+            seq.Append(transform.DOLocalMoveY(0.3f, 0.3f));
+            seq.SetLoops(-1, LoopType.Yoyo);
+        }
     }
 }

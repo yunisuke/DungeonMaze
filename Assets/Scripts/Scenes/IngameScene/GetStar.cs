@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class GetStar : MonoBehaviour
+namespace Scenes.IngameScene
 {
-    // Start is called before the first frame update
-    void Start()
+    public class GetStar : MonoBehaviour
     {
-        transform.localScale = new Vector3(0, 0, 0);
-        transform.DOScale(Vector3.one, 1).SetEase(Ease.OutElastic);
+        // Start is called before the first frame update
+        void Start()
+        {
+            transform.localScale = new Vector3(0, 0, 0);
+            transform.DOScale(Vector3.one, 1).SetEase(Ease.OutElastic);
+        }
     }
 }
