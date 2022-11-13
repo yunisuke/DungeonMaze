@@ -46,6 +46,8 @@ public class DungeonScene : MonoBehaviour
         timer.SetFloorText(map.MapNo);
         timer.SetStar2Time(map.Star2);
         timer.SetStar3Time(map.Star3);
+
+        startScreen.SetActive(true);
     }
 
     void Update()
@@ -115,6 +117,7 @@ public class DungeonScene : MonoBehaviour
     {
         AdManager.Instance.HideAds();
         AdManager.Instance.HideMediumAds();
+        SceneManager.LoadScene("TitleScene");
     }
 
     public void OnClickRetryButton()
