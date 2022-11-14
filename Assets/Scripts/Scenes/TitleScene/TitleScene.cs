@@ -15,7 +15,7 @@ namespace Scenes.TitleScene
             SoundManager.Instance.Initialize ();
             AdManager.Instance.Initialize ();
 
-            DataManager.Initialize();
+            DataManager.Instance.Initialize();
 
             stageSelectView.GetComponent<StagePanel>().ButtonEvent = OnClickStartButton;
         }
@@ -34,7 +34,7 @@ namespace Scenes.TitleScene
 
         public void OnClickDeleteSave()
         {
-            DataManager.DeleteData();
+            DataManager.Instance.DeleteData();
             SceneManager.LoadScene("TitleScene");
         }
     }

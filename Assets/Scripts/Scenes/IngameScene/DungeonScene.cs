@@ -31,7 +31,7 @@ namespace Scenes.IngameScene
             SoundManager.Instance.Initialize ();
             AdManager.Instance.Initialize ();
 
-            DataManager.Initialize();
+            DataManager.Instance.Initialize();
 
             controller.SetActive(false);
         }
@@ -170,7 +170,7 @@ namespace Scenes.IngameScene
             goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
             SoundManager.Instance.PlaySE(SEType.Goal);
 
-            DataManager.Save(map.MapNo, timer.GetStar);
+            DataManager.Instance.Save(map.MapNo, timer.GetStar);
         }
     }
 }

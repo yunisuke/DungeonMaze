@@ -19,12 +19,12 @@ namespace Scenes.TitleScene
         public void SetStageSelectView()
         {
             TextAsset[] txt = Resources.LoadAll<TextAsset>("MapFile");
-            int clearNum = DataManager.GetClearStageMax();
+            int clearNum = DataManager.Instance.GetClearStageMax();
 
             for(int i=0; i<txt.Length; i++)
             {
                 var f = txt[i];
-                CreatePrefab(int.Parse(f.name), DataManager.GetStageInfo(int.Parse(f.name)), clearNum);
+                CreatePrefab(int.Parse(f.name), DataManager.Instance.GetStageInfo(int.Parse(f.name)), clearNum);
             }
         }
 

@@ -8,19 +8,29 @@ using Scenes.TitleScene;
 
 namespace Manager
 {
-    public static class DataManager
+    public class DataManager
     {
-        private static string filePath;
-        public static Dictionary<int, ClearData> clearData = new Dictionary<int, ClearData>();
-        private static SaveData s = new SaveData();
+        private static DataManager _instance;
 
-        public static void Initialize()
+        private string filePath;
+        public Dictionary<int, ClearData> clearData = new Dictionary<int, ClearData>();
+        private SaveData s = new SaveData();
+
+        private DataManager () {
+        }
+
+        public static DataManager Instance {get {
+            if (_instance == null) _instance = new DataManager ();
+            return _instance;
+        }}
+
+        public void Initialize()
         {
             filePath = Application.persistentDataPath + "/" + "savedata.json";
             Load();
         }
 
-        public static void Save(int mapNo, int getStar)
+        public void Save(int mapNo, int getStar)
         {
             if (GetStageInfo(mapNo) >= getStar) return;
 
@@ -39,7 +49,7 @@ namespace Manager
             streamWriter.Close();
         }
 
-        public static void Load()
+        public void Load()
         {
             if (File.Exists(filePath))
             {
@@ -56,20 +66,20 @@ namespace Manager
             }
         }
 
-        public static void DeleteData()
+        public void DeleteData()
         {
             File.Delete(filePath);
             clearData = new Dictionary<int, ClearData>();
             s = new SaveData();
         }
 
-        public static int GetClearStageMax()
+        public int GetClearStageMax()
         {
             if (clearData.Keys.Count == 0) return 0;
             return clearData.Keys.Max();
         }
 
-        public static int GetStageInfo(int level)
+        public int GetStageInfo(int level)
         {
             if (clearData.ContainsKey(level) == false) return 0;
             return clearData[level].GetStar;
