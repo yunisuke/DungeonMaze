@@ -7,7 +7,7 @@ namespace Scenes.IngameScene
         [SerializeField] private RectTransform markerTr;
         [SerializeField] private MiniMapCell[] miniMapCells;
 
-        public void UpdateMap(Map map)
+        public void Update(Map map)
         {
             OpenCell(map);
             SetMarkerDirection(map.Position.d);
@@ -21,32 +21,32 @@ namespace Scenes.IngameScene
             switch(map.Position.d)
             {
             case Direction.North:
-                Open(map.Position.x, map.Position.y - 1, map); // 正面
+                Open(map.Position.x,     map.Position.y - 1, map); // 正面
                 Open(map.Position.x + 1, map.Position.y - 1, map); // 右正面
                 Open(map.Position.x - 1, map.Position.y - 1, map); // 左正面
-                Open(map.Position.x + 1, map.Position.y, map); // 右
-                Open(map.Position.x - 1, map.Position.y, map); // 左
+                Open(map.Position.x + 1, map.Position.y,     map); // 右
+                Open(map.Position.x - 1, map.Position.y,     map); // 左
                 break;
             case Direction.South:
-                Open(map.Position.x, map.Position.y + 1, map); // 正面
+                Open(map.Position.x,     map.Position.y + 1, map); // 正面
                 Open(map.Position.x - 1, map.Position.y + 1, map); // 右正面
                 Open(map.Position.x + 1, map.Position.y + 1, map); // 左正面
-                Open(map.Position.x - 1, map.Position.y, map); // 右
-                Open(map.Position.x + 1, map.Position.y, map); // 左
+                Open(map.Position.x - 1, map.Position.y,     map); // 右
+                Open(map.Position.x + 1, map.Position.y,     map); // 左
                 break;
             case Direction.West:
-                Open(map.Position.x - 1, map.Position.y, map); // 正面
+                Open(map.Position.x - 1, map.Position.y,     map); // 正面
                 Open(map.Position.x - 1, map.Position.y - 1, map); // 右正面
                 Open(map.Position.x - 1, map.Position.y + 1, map); // 左正面
-                Open(map.Position.x, map.Position.y - 1, map); // 右
-                Open(map.Position.x, map.Position.y + 1, map); // 左
+                Open(map.Position.x,     map.Position.y - 1, map); // 右
+                Open(map.Position.x,     map.Position.y + 1, map); // 左
                 break;
             case Direction.East:
-                Open(map.Position.x + 1, map.Position.y, map); // 正面
+                Open(map.Position.x + 1, map.Position.y,    map); // 正面
                 Open(map.Position.x + 1, map.Position.y + 1, map); // 右正面
                 Open(map.Position.x + 1, map.Position.y - 1, map); // 左正面
-                Open(map.Position.x, map.Position.y + 1, map); // 右
-                Open(map.Position.x, map.Position.y - 1, map); // 左
+                Open(map.Position.x,     map.Position.y + 1, map); // 右
+                Open(map.Position.x,     map.Position.y - 1, map); // 左
                 break;
             }
         }

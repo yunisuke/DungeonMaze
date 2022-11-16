@@ -43,7 +43,7 @@ namespace Scenes.IngameScene
 
             map = MapReader.ReadFile(IngameSceneParameter.SelectMap);
             mk.MakeDungeon(map);
-            miniMap.UpdateMap(map);
+            miniMap.Update(map);
 
             timer.SetFloorText(map.MapId.FileName);
             timer.SetStar2Time(map.Star2);
@@ -158,7 +158,7 @@ namespace Scenes.IngameScene
 
         private void AfterMove(Cell c)
         {
-            miniMap.UpdateMap(map);
+            miniMap.Update(map);
             if (c.CellType == CellType.Goal) GoalEffect();
         }
 
