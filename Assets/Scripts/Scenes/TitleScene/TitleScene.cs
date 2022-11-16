@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Manager;
+using Data;
 
 namespace Scenes.TitleScene
 {
@@ -26,9 +27,9 @@ namespace Scenes.TitleScene
             stageSelectView.SetActive(true);
         }
 
-        public void OnClickStartButton(int level)
+        public void OnClickStartButton(MapId mapId)
         {
-            IngameSceneParameter.SelectLevel = level;
+            IngameSceneParameter.SelectMap = mapId;
             SceneManager.LoadSceneAsync("IngameScene");
         }
 
@@ -41,6 +42,6 @@ namespace Scenes.TitleScene
 
     public static class IngameSceneParameter
     {
-        public static int SelectLevel = 1;
+        public static MapId SelectMap = new MapId("1");
     }
 }

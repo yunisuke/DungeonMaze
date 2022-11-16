@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using Manager;
+using System.Collections.Generic;
+using Data;
 
 namespace Scenes.TitleScene
 {
@@ -9,7 +11,7 @@ namespace Scenes.TitleScene
         [SerializeField] private StageButton buttonPrefab;
         [SerializeField] private RectTransform buttonContainer;
 
-        public UnityAction<int> ButtonEvent;
+        public UnityAction<MapId> ButtonEvent;
 
         void Awake()
         {
@@ -18,27 +20,30 @@ namespace Scenes.TitleScene
 
         public void SetStageSelectView()
         {
-            TextAsset[] txt = Resources.LoadAll<TextAsset>("MapFile");
-            int clearNum = DataManager.Instance.GetClearStageMax();
+            List<MapId> stageList = DataManager.Instance.mapIdList;
+            bool canChallengeStage = true;
 
-            for(int i=0; i<txt.Length; i++)
+            for(int i=0; i<stageList.Count; i++)
             {
-                var f = txt[i];
-                CreatePrefab(int.Parse(f.name), DataManager.Instance.GetStageInfo(int.Parse(f.name)), clearNum);
+                MapId mapId = stageList[i];
+                ClearData clearData = DataManager.Instance.GetClearData(mapId);
+
+                CreatePrefab(mapId.FileName, clearData.GetStar, canChallengeStage);
+                if (clearData.GetStar == 0) canChallengeStage = false;
             }
         }
 
-        private void CreatePrefab(int no, int getStar, int clearNum)
+        private void CreatePrefab(string fileName, int getStar, bool canChallengeStage)
         {
             StageButton b = GameObject.Instantiate(buttonPrefab, buttonContainer);
             
-            if (no > clearNum + 1)
+            if (canChallengeStage)
             {
-                b.SetButton(no, getStar, null);
+                b.SetButton(fileName, getStar, () => ButtonEvent.Invoke(new MapId(fileName)));
             }
             else
             {
-                b.SetButton(no, getStar, () => ButtonEvent.Invoke(no));
+                b.SetButton(fileName, getStar, null);
             }
         }
     }

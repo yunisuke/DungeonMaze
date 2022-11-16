@@ -41,11 +41,11 @@ namespace Scenes.IngameScene
         {
             AdManager.Instance.ShowAds();
 
-            map = MapReader.ReadFile(IngameSceneParameter.SelectLevel);
+            map = MapReader.ReadFile(IngameSceneParameter.SelectMap);
             mk.MakeDungeon(map);
             miniMap.UpdateMap(map);
 
-            timer.SetFloorText(map.MapNo);
+            timer.SetFloorText(map.MapId.FileName);
             timer.SetStar2Time(map.Star2);
             timer.SetStar3Time(map.Star3);
 
@@ -149,7 +149,7 @@ namespace Scenes.IngameScene
 
         public void OnClickNextLevel()
         {
-            IngameSceneParameter.SelectLevel++;
+            IngameSceneParameter.SelectMap = DataManager.Instance.GetNextStage(IngameSceneParameter.SelectMap);
 
             AdManager.Instance.HideAds();
             AdManager.Instance.HideMediumAds();
@@ -170,7 +170,7 @@ namespace Scenes.IngameScene
             goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
             SoundManager.Instance.PlaySE(SEType.Goal);
 
-            DataManager.Instance.Save(map.MapNo, timer.GetStar);
+            DataManager.Instance.SaveUserData(map.MapId, timer.GetStar);
         }
     }
 }

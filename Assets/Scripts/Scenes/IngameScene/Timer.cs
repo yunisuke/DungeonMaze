@@ -54,9 +54,9 @@ namespace Scenes.IngameScene
             star2.text = ConvertTimeText(time);
         }
 
-        public void SetFloorText(int floorNum)
+        public void SetFloorText(string mapName)
         {
-            floor.text = floorNum.ToString();
+            floor.text = mapName;
         }
 
         public string TimeText

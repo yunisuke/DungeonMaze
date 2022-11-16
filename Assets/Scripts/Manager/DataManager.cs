@@ -1,20 +1,19 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System;
-using System.Linq;
-using Scenes.TitleScene;
+using Data;
 
 namespace Manager
 {
     public class DataManager
     {
         private static DataManager _instance;
+        private IDataRepository repos;
+        
+        // メモリ内ユーザーデータ
+        public Dictionary<MapId, ClearData> clearDataDic = new Dictionary<MapId, ClearData>();
 
-        private string filePath;
-        public Dictionary<int, ClearData> clearData = new Dictionary<int, ClearData>();
-        private SaveData s = new SaveData();
+        // メモリ内ステージデータ
+        public List<MapId> mapIdList = new List<MapId>();
 
         private DataManager () {
         }
@@ -26,68 +25,71 @@ namespace Manager
 
         public void Initialize()
         {
-            filePath = Application.persistentDataPath + "/" + "savedata.json";
-            Load();
+            repos = new FileRepository();
+            
+            LoadUserData();
+            LoadStageData();
         }
 
-        public void Save(int mapNo, int getStar)
+        public void SaveUserData(MapId mapId, int getStar)
         {
-            if (GetStageInfo(mapNo) >= getStar) return;
+            var nowCd = new ClearData(mapId, getStar);
+            var befCd = GetClearData(mapId);
+            if (nowCd.GetStar <= befCd.GetStar) return;
+            
+            // メモリに保存
+            clearDataDic[mapId] = nowCd;
 
-            clearData[mapNo] = new ClearData(mapNo, getStar);
-            s.clearDataList = new List<ClearData>();
-            foreach(var v in clearData.Values)
+            // リポジトリに保存
+            var tmp = new List<ClearData>();
+            foreach(var c in clearDataDic.Values)
             {
-                s.clearDataList.Add(v);
+                tmp.Add(c);
             }
-
-            string json = JsonUtility.ToJson(s);
-            Debug.Log(json);
-            StreamWriter streamWriter = new StreamWriter(filePath);
-            streamWriter.Write(json);
-            streamWriter.Flush();
-            streamWriter.Close();
+            repos.Save(tmp);
         }
 
-        public void Load()
+        public void LoadUserData()
         {
-            if (File.Exists(filePath))
+            List<ClearData> clearDataList = repos.Load();
+            foreach(var cd in clearDataList)
             {
-                StreamReader streamReader;
-                streamReader = new StreamReader(filePath);
-                string data = streamReader.ReadToEnd();
-                streamReader.Close();
-                var tmp = JsonUtility.FromJson<SaveData>(data);
-                s = tmp;
-                foreach(var v in s.clearDataList)
-                {
-                    clearData[v.StageNumber] = v;
-                }
+                clearDataDic[cd.MapId] = cd;
             }
         }
 
         public void DeleteData()
         {
-            File.Delete(filePath);
-            clearData = new Dictionary<int, ClearData>();
-            s = new SaveData();
+            // メモリから削除
+            clearDataDic = new Dictionary<MapId, ClearData>();
+
+            // リポジトリから削除
+            repos.Delete();
         }
 
-        public int GetClearStageMax()
+        private void LoadStageData()
         {
-            if (clearData.Keys.Count == 0) return 0;
-            return clearData.Keys.Max();
+            mapIdList = new List<MapId>();
+
+            // ステージデータ読み込み
+            TextAsset[] files = Resources.LoadAll<TextAsset>("MapFile");
+            foreach(var f in files)
+            {
+                mapIdList.Add(new MapId(f.name));
+            }
         }
 
-        public int GetStageInfo(int level)
+        public ClearData GetClearData(MapId mapId)
         {
-            if (clearData.ContainsKey(level) == false) return 0;
-            return clearData[level].GetStar;
+            if (clearDataDic.ContainsKey(mapId) == false) return new ClearData(mapId, 0);
+            return clearDataDic[mapId];
         }
 
-        [Serializable]
-        public class SaveData{
-            public List<ClearData> clearDataList = new List<ClearData>();
+        public MapId GetNextStage(MapId mapId)
+        {
+            var ind = mapIdList.IndexOf(mapId) + 1;
+            if (ind >= mapIdList.Count) return null;
+            return mapIdList[ind];
         }
     }
 }

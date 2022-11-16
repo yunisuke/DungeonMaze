@@ -1,10 +1,11 @@
 using UnityEngine;
+using Data;
 
 namespace Scenes.IngameScene
 {
     public class Map
     {
-        public int MapNo {get; private set;}
+        public MapId MapId {get; private set;}
 
         public Cell[,] Cells {get; private set;}
         public int Max_X {get; private set;}
@@ -13,9 +14,9 @@ namespace Scenes.IngameScene
         public float Star3 {get; private set;}
         public float Star2 {get; private set;}
 
-        public Map(int mapNo, int maxX, int maxY, Cell[,] c, PlayerPosition p, float star2, float star3)
+        public Map(MapId mapId, int maxX, int maxY, Cell[,] c, PlayerPosition p, float star2, float star3)
         {
-            MapNo = mapNo;
+            MapId = mapId;
 
             Max_X = maxX;
             Max_Y = maxY;

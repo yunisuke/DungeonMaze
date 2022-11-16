@@ -12,9 +12,9 @@ namespace Scenes.TitleScene
         [SerializeField] private GameObject mask;
         [SerializeField] private Button button;
 
-        public void SetButton(int stageNo, int getStar, UnityAction callback)
+        public void SetButton(string stageName, int getStar, UnityAction callback)
         {
-            noText.text = stageNo.ToString();
+            noText.text = stageName;
             for (int i=0; i<getStar; i++)
             {
                 stars[i].SetActive(true);

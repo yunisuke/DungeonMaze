@@ -1,22 +1,23 @@
 using System.IO;
 using UnityEngine;
+using Data;
 
 namespace Scenes.IngameScene
 {
     public class MapReader
     {
-        public static Map ReadFile(int level)
+        public static Map ReadFile(MapId mapId)
         {
-            if (level == 0) level = 1;
+            if (mapId == null) mapId = new MapId("1");
 
-            var fileName = level;
+            var fileName = mapId.FileName;
             TextAsset txt = Resources.Load("MapFile/" + fileName) as TextAsset;
 
-            var map = CreateMap(level, txt);
+            var map = CreateMap(mapId, txt);
             return map;
         }
 
-        private static Map CreateMap(int level, TextAsset txt)
+        private static Map CreateMap(MapId mapId, TextAsset txt)
         {
             int maxX = GetMaxX(txt);
             int maxY = GetMaxY(txt);
@@ -52,7 +53,7 @@ namespace Scenes.IngameScene
                 y++;
             }
 
-            return new Map(level, maxX, maxY, cells, p, mh.star2, mh.star3);
+            return new Map(mapId, maxX, maxY, cells, p, mh.star2, mh.star3);
         }
 
         private static PlayerPosition SetPlayerPosition(int x, int y, string pd)
