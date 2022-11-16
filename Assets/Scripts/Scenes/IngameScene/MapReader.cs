@@ -4,7 +4,7 @@ using Data;
 
 namespace Scenes.IngameScene
 {
-    public class MapReader
+    public static class MapReader
     {
         public static Map ReadFile(MapId mapId)
         {
