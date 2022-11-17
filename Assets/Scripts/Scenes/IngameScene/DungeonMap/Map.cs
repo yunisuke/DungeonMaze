@@ -1,9 +1,9 @@
 using UnityEngine;
 using Data;
 
-namespace Scenes.IngameScene
+namespace Scenes.IngameScene.DungeonMap
 {
-    public class Map
+    public class MapData
     {
         public MapId MapId {get; private set;}
 
@@ -14,7 +14,7 @@ namespace Scenes.IngameScene
         public float Star3 {get; private set;}
         public float Star2 {get; private set;}
 
-        public Map(MapId mapId, int maxX, int maxY, Cell[,] c, PlayerPosition p, float star2, float star3)
+        public MapData(MapId mapId, int maxX, int maxY, Cell[,] c, PlayerPosition p, float star2, float star3)
         {
             MapId = mapId;
 

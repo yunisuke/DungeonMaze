@@ -2,11 +2,11 @@ using System.IO;
 using UnityEngine;
 using Data;
 
-namespace Scenes.IngameScene
+namespace Scenes.IngameScene.DungeonMap
 {
     public static class MapReader
     {
-        public static Map ReadFile(MapId mapId)
+        public static MapData ReadFile(MapId mapId)
         {
             if (mapId == null) mapId = new MapId("1");
 
@@ -17,7 +17,7 @@ namespace Scenes.IngameScene
             return map;
         }
 
-        private static Map CreateMap(MapId mapId, TextAsset txt)
+        private static MapData CreateMap(MapId mapId, TextAsset txt)
         {
             int maxX = GetMaxX(txt);
             int maxY = GetMaxY(txt);
@@ -53,7 +53,7 @@ namespace Scenes.IngameScene
                 y++;
             }
 
-            return new Map(mapId, maxX, maxY, cells, p, mh.star2, mh.star3);
+            return new MapData(mapId, maxX, maxY, cells, p, mh.star2, mh.star3);
         }
 
         private static PlayerPosition SetPlayerPosition(int x, int y, string pd)

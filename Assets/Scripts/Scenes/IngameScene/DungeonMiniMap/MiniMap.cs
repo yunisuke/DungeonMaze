@@ -1,20 +1,21 @@
 using UnityEngine;
+using Scenes.IngameScene.DungeonMap;
 
-namespace Scenes.IngameScene
+namespace Scenes.IngameScene.DungeonMiniMap
 {
     public class MiniMap : MonoBehaviour
     {
         [SerializeField] private RectTransform markerTr;
         [SerializeField] private MiniMapCell[] miniMapCells;
 
-        public void Update(Map map)
+        public void Update(MapData map)
         {
             OpenCell(map);
             SetMarkerDirection(map.Position.d);
             DrawMiniMapCell(map, map.Cells, map.Position);
         }
 
-        private void OpenCell(Map map)
+        private void OpenCell(MapData map)
         {
             map.Cells[map.Position.y, map.Position.x].IsOpen = true; // 現在位置をオープン
 
@@ -51,7 +52,7 @@ namespace Scenes.IngameScene
             }
         }
 
-        private void Open(int x, int y, Map map)
+        private void Open(int x, int y, MapData map)
         {
             if (x >= map.Max_X || y >= map.Max_Y || x < 0 || y < 0) return;
             map.Cells[y, x].IsOpen = true;
@@ -76,7 +77,7 @@ namespace Scenes.IngameScene
             }
         }
 
-        private void DrawMiniMapCell(Map m, Cell[,] cells, PlayerPosition p)
+        private void DrawMiniMapCell(MapData m, Cell[,] cells, PlayerPosition p)
         {
             int beginX = p.x - 4;
             int endX = p.x + 4;

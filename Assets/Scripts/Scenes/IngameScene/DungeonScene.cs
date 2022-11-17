@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Manager;
 using Scenes.TitleScene;
+using Scenes.IngameScene.DungeonMap;
+using Scenes.IngameScene.DungeonMiniMap;
 
 namespace Scenes.IngameScene
 {
@@ -21,7 +23,7 @@ namespace Scenes.IngameScene
         [SerializeField] private Timer timer;
         [SerializeField] private GameObject controller;
 
-        private Map map;
+        private MapData map;
         private bool isGoal = false;
         private bool isStart = false;
 

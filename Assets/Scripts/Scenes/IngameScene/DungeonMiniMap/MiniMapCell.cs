@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using Scenes.IngameScene.DungeonMap;
 
-namespace Scenes.IngameScene
+namespace Scenes.IngameScene.DungeonMiniMap
 {
     [RequireComponent(typeof(Image))]
     public class MiniMapCell : MonoBehaviour

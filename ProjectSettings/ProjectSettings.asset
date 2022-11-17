@@ -179,6 +179,10 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: b3ba6e9cf5f7647ee8c4c1b8b906cbc5, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -199,6 +203,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.DungeonMaze
+    iPhone: com.DefaultCompany.DungeonMaze
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -219,7 +224,7 @@ PlayerSettings:
   keepLoadedShadersAlive: 0
   StripUnusedMeshComponents: 1
   VertexChannelCompressionMask: 4054
-  iPhoneSdkVersion: 988
+  iPhoneSdkVersion: 989
   iOSTargetOSVersionString: 11.0
   tvOSSdkVersion: 0
   tvOSRequireExtendedGameController: 0

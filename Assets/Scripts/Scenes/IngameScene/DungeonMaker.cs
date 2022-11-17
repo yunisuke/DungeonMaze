@@ -1,4 +1,5 @@
 using UnityEngine;
+using Scenes.IngameScene.DungeonMap;
 
 namespace Scenes.IngameScene
 {
@@ -9,7 +10,7 @@ namespace Scenes.IngameScene
         [SerializeField] private GameObject Wall;
         [SerializeField] private GameObject Goal;
 
-        public void MakeDungeon(Map map)
+        public void MakeDungeon(MapData map)
         {
             PutPrefabs(map);
             SetPlayerPosition(map.Position);
@@ -45,7 +46,7 @@ namespace Scenes.IngameScene
             return new Vector3(0, dic, 0);
         }
 
-        private void PutPrefabs(Map map)
+        private void PutPrefabs(MapData map)
         {
             for (int y = 0; y < map.Max_Y; y++)
             {
