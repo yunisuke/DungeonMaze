@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Data;
+using System.Linq;
 
 namespace Manager
 {
@@ -73,9 +74,13 @@ namespace Manager
 
             // ステージデータ読み込み
             TextAsset[] files = Resources.LoadAll<TextAsset>("MapFile");
-            foreach(var f in files)
+
+            // 数字のリストに変換
+            var list = files.Select(x => x.name).OrderBy(name => int.Parse(name));
+
+            foreach(var i in list)
             {
-                mapIdList.Add(new MapId(f.name));
+                mapIdList.Add(new MapId(i.ToString()));
             }
         }
 
