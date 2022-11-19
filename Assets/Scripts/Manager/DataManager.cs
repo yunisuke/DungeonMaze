@@ -91,5 +91,11 @@ namespace Manager
             if (ind >= mapIdList.Count) return null;
             return mapIdList[ind];
         }
+
+        public bool ExistNextGame(MapId mapId)
+        {
+            MapId id = GetNextStage(mapId);
+            return id != null;
+        }
     }
 }

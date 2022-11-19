@@ -3,6 +3,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using Manager;
+using Data;
 
 namespace Scenes.IngameScene
 {
@@ -13,6 +14,7 @@ namespace Scenes.IngameScene
 
         [SerializeField] private GameObject[] stars;
         [SerializeField] private GameObject footer;
+        [SerializeField] private GameObject nextGameButton;
 
         void Awake()
         {
@@ -25,9 +27,10 @@ namespace Scenes.IngameScene
             clearTime.alpha = 0;
         }
 
-        public void OpenScreen(string time, int getStar)
+        public void OpenScreen(MapId mapId, string time, int getStar)
         {
             gameObject.SetActive(true);
+            nextGameButton.SetActive(DataManager.Instance.ExistNextGame(mapId));
             clearTime.text = time;
 
             StartCoroutine(Effect(getStar));

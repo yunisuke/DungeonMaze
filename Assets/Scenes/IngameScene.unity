@@ -9943,6 +9943,7 @@ MonoBehaviour:
   - {fileID: 715807864}
   - {fileID: 880192042}
   footer: {fileID: 296959553}
+  nextGameButton: {fileID: 612070809}
 --- !u!1 &1566613030
 GameObject:
   m_ObjectHideFlags: 0

@@ -169,7 +169,7 @@ namespace Scenes.IngameScene
             isGoal = true;
             timer.StopTimer();
 
-            goalScreen.OpenScreen(timer.TimeText, timer.GetStar);
+            goalScreen.OpenScreen(map.MapId, timer.TimeText, timer.GetStar);
             SoundManager.Instance.PlaySE(SEType.Goal);
 
             DataManager.Instance.SaveUserData(map.MapId, timer.GetStar);
