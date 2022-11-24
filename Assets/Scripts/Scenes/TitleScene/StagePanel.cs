@@ -10,12 +10,14 @@ namespace Scenes.TitleScene
     {
         [SerializeField] private StageButton buttonPrefab;
         [SerializeField] private RectTransform buttonContainer;
+        [SerializeField] private GameObject deleteDataButton;
 
         public UnityAction<MapId> ButtonEvent;
 
         void Awake()
         {
             SetStageSelectView();
+            if (Debug.isDebugBuild == false) deleteDataButton.SetActive(false);
         }
 
         public void SetStageSelectView()
