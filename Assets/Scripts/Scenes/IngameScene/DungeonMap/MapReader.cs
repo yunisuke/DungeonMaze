@@ -130,6 +130,8 @@ namespace Scenes.IngameScene.DungeonMap
                     return new DummyWallCell(CellType.DummyWall);
                 case ' ':
                     return new GroundCell(CellType.Ground);
+                case 'd':
+                    return new DarkZoneCell(CellType.DarkZone);
                 case 'g':
                     return new GroundCell(CellType.Goal);
                 default:

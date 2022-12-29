@@ -110,6 +110,7 @@ namespace Scenes.IngameScene.DungeonMap
         Ground, // 地面
         Wall, // 壁。移動不可能
         DummyWall, // 偽物の壁。移動可能
+        DarkZone, // 暗闇
         Goal, // ゴール
     }
 
