@@ -23,12 +23,12 @@ namespace Scenes.IngameScene.DungeonMap
             int maxY = GetMaxY(txt);
             PlayerPosition p = null;
 
-            Cell[,] cells = new Cell[maxY, maxX];
+            BaseCell[,] cells = new BaseCell[maxY, maxX];
             for (int _y = 0; _y < maxY; _y++)
             {
                 for (int x = 0; x < maxX; x++)
                 {
-                    cells[_y, x] = new Cell(CellType.Wall);
+                    cells[_y, x] = new EmptyCell(CellType.Empty);
                 }
             }
 
@@ -116,22 +116,22 @@ namespace Scenes.IngameScene.DungeonMap
             return maxY;
         }
 
-        private static Cell ChangeCell(char c)
+        private static BaseCell ChangeCell(char c)
         {
             switch(c)
             {
                 case '-':
-                    return new Cell(CellType.None);
+                    return new EmptyCell(CellType.Empty);
                 case 's':
-                    return new Cell(CellType.Ground);
+                    return new GroundCell(CellType.Ground);
                 case '#':
-                    return new Cell(CellType.Wall);
+                    return new WallCell(CellType.Wall);
                 case '*':
-                    return new Cell(CellType.DummyWall);
+                    return new DummyWallCell(CellType.DummyWall);
                 case ' ':
-                    return new Cell(CellType.Ground);
+                    return new GroundCell(CellType.Ground);
                 case 'g':
-                    return new Cell(CellType.Goal);
+                    return new GroundCell(CellType.Goal);
                 default:
                     return null;
             }

@@ -17,7 +17,7 @@ namespace Scenes.IngameScene.DungeonMiniMap
 
         private void OpenCell(MapData map)
         {
-            map.Cells[map.Position.y, map.Position.x].IsOpen = true; // 現在位置をオープン
+            map.Cells[map.Position.y, map.Position.x].ExecIntoSightCellEvent(); // 現在位置をオープン
 
             switch(map.Position.d)
             {
@@ -55,7 +55,7 @@ namespace Scenes.IngameScene.DungeonMiniMap
         private void Open(int x, int y, MapData map)
         {
             if (x >= map.Max_X || y >= map.Max_Y || x < 0 || y < 0) return;
-            map.Cells[y, x].IsOpen = true;
+            map.Cells[y, x].ExecIntoSightCellEvent();
         }
 
         private void SetMarkerDirection(Direction d)
@@ -77,7 +77,7 @@ namespace Scenes.IngameScene.DungeonMiniMap
             }
         }
 
-        private void DrawMiniMapCell(MapData m, Cell[,] cells, PlayerPosition p)
+        private void DrawMiniMapCell(MapData m, BaseCell[,] cells, PlayerPosition p)
         {
             int beginX = p.x - 4;
             int endX = p.x + 4;
@@ -108,7 +108,7 @@ namespace Scenes.IngameScene.DungeonMiniMap
                     }
 
                     // マップに地形記載
-                    mc.DrawCell(c.CellType);
+                    mc.DrawCell(c.CellColor);
                 }
             }
         }

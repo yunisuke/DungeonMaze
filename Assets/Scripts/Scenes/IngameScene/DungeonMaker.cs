@@ -57,7 +57,7 @@ namespace Scenes.IngameScene
                     GameObject obj;
                     switch(c.CellType)
                     {
-                        case CellType.None:
+                        case CellType.Empty:
                             break;
                         case CellType.Ground:
                             obj = GameObject.Instantiate(Ground);

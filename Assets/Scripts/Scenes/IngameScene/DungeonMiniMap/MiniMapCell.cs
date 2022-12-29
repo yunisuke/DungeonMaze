@@ -9,29 +9,14 @@ namespace Scenes.IngameScene.DungeonMiniMap
     {
         private Image img;
 
-        [SerializeField] private Color wallColor;
-        [SerializeField] private Color groundColor;
-
         void Awake()
         {
             img = GetComponent<Image>();
         }
 
-        public void DrawCell(CellType c)
+        public void DrawCell(Color color)
         {
-            switch(c)
-            {
-            case CellType.Goal:
-                img.color = groundColor;
-                break;
-            case CellType.Ground:
-                img.color = groundColor;
-                break;
-            case CellType.Wall:
-            case CellType.DummyWall:
-                img.color = wallColor;
-                break;
-            }
+            img.color = color;
         }
 
         public void ClearCell()

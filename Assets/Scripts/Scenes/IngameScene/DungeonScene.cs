@@ -158,8 +158,9 @@ namespace Scenes.IngameScene
             SceneManager.LoadScene("IngameScene");
         }
 
-        private void AfterMove(Cell c)
+        private void AfterMove(BaseCell c)
         {
+            c.ExecOnCellEvent();
             miniMap.Update(map);
             if (c.CellType == CellType.Goal) GoalEffect();
         }

@@ -7,14 +7,14 @@ namespace Scenes.IngameScene.DungeonMap
     {
         public MapId MapId {get; private set;}
 
-        public Cell[,] Cells {get; private set;}
+        public BaseCell[,] Cells {get; private set;}
         public int Max_X {get; private set;}
         public int Max_Y {get; private set;}
         public PlayerPosition Position{get; private set;}
         public float Star3 {get; private set;}
         public float Star2 {get; private set;}
 
-        public MapData(MapId mapId, int maxX, int maxY, Cell[,] c, PlayerPosition p, float star2, float star3)
+        public MapData(MapId mapId, int maxX, int maxY, BaseCell[,] c, PlayerPosition p, float star2, float star3)
         {
             MapId = mapId;
 
@@ -27,13 +27,13 @@ namespace Scenes.IngameScene.DungeonMap
             Star3 = star3;
         }
 
-        public Cell TurnRightPlayer()
+        public BaseCell TurnRightPlayer()
         {
             Position.TurnRight();
             return Cells[Position.y, Position.x];
         }
 
-        public Cell TurnLeftPlayer()
+        public BaseCell TurnLeftPlayer()
         {
             Position.TurnLeft();
             return Cells[Position.y, Position.x];
@@ -48,12 +48,12 @@ namespace Scenes.IngameScene.DungeonMap
             if (targetX > Max_X || targetX < 0) return false;
             if (targetY > Max_Y || targetY < 0) return false;
 
-            if (Cells[targetY, targetX].CellType == CellType.Wall) return false;
+            if (Cells[targetY, targetX].CanMove == false) return false;
 
             return true;
         }
 
-        public Cell MovePlayer(bool isAhead)
+        public BaseCell MovePlayer(bool isAhead)
         {
             var targetX = Position.x + GetTargetX(Position.d, isAhead);
             var targetY = Position.y + GetTargetY(Position.d, isAhead);
@@ -104,33 +104,13 @@ namespace Scenes.IngameScene.DungeonMap
         }
     }
 
-    public class Cell
-    {
-        public CellType CellType {get; private set;}
-        private EventType eventType;
-        public bool IsOpen {get; set;}
-
-        public Cell(CellType ct)
-        {
-            CellType = ct;
-        }
-    }
-
     public enum CellType
     {
-        None, // 何もない
+        Empty, // 何もない
         Ground, // 地面
         Wall, // 壁。移動不可能
         DummyWall, // 偽物の壁。移動可能
         Goal, // ゴール
-    }
-
-    public enum EventType
-    {
-        None, // 何もない
-        Item, // アイテムが配置されている
-        Warp, // ワープゾーン
-        // Door = 1 << 2, // 扉
     }
 
     public class PlayerPosition
