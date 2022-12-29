@@ -9099,6 +9099,8 @@ MonoBehaviour:
   pl: {fileID: 1955483598}
   Ground: {fileID: 3760630705928149881, guid: 6e2fb9b91c554488faa7cce642a00cb2, type: 3}
   Wall: {fileID: 8377003651132715320, guid: 02b7048387ea1498496ef79caaa5cd9c, type: 3}
+  DummyWall: {fileID: 3274836518958251052, guid: 3bc2fc97fd3ee4699afa2245cffe80e2,
+    type: 3}
   Goal: {fileID: 3531502615031760564, guid: 61630c3c64d0c4893a3cdd21742140aa, type: 3}
 --- !u!1 &1401651070
 GameObject:

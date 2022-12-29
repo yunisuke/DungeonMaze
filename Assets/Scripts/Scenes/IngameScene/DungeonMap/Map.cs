@@ -121,6 +121,7 @@ namespace Scenes.IngameScene.DungeonMap
         None, // 何もない
         Ground, // 地面
         Wall, // 壁。移動不可能
+        DummyWall, // 偽物の壁。移動可能
         Goal, // ゴール
     }
 

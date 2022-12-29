@@ -126,6 +126,8 @@ namespace Scenes.IngameScene.DungeonMap
                     return new Cell(CellType.Ground);
                 case '#':
                     return new Cell(CellType.Wall);
+                case '*':
+                    return new Cell(CellType.DummyWall);
                 case ' ':
                     return new Cell(CellType.Ground);
                 case 'g':

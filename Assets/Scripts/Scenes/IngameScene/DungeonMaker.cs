@@ -8,6 +8,7 @@ namespace Scenes.IngameScene
         [SerializeField] private Player pl;
         [SerializeField] private GameObject Ground;
         [SerializeField] private GameObject Wall;
+        [SerializeField] private GameObject DummyWall;
         [SerializeField] private GameObject Goal;
 
         public void MakeDungeon(MapData map)
@@ -65,6 +66,13 @@ namespace Scenes.IngameScene
                         case CellType.Wall:
                             obj = GameObject.Instantiate(Wall);
                             obj.transform.position = new Vector3(x, 1, -y);
+                            break;
+                        case CellType.DummyWall:
+                            obj = GameObject.Instantiate(DummyWall);
+                            obj.transform.position = new Vector3(x, 1, -y);
+
+                            var obj2 = GameObject.Instantiate(Ground);
+                            obj2.transform.position = new Vector3(x, 0, -y);
                             break;
                         case CellType.Goal:
                             var g = GameObject.Instantiate(Goal);

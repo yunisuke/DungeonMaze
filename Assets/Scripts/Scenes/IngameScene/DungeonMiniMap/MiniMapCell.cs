@@ -28,6 +28,7 @@ namespace Scenes.IngameScene.DungeonMiniMap
                 img.color = groundColor;
                 break;
             case CellType.Wall:
+            case CellType.DummyWall:
                 img.color = wallColor;
                 break;
             }
