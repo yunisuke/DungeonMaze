@@ -56,7 +56,7 @@ namespace Scenes.IngameScene
 
         void Update()
         {
-            if (!isStart || isGoal || pl.IsMove) return;
+            if (IsInputInvalidTime()) return;
 
             if (Keyboard.current.upArrowKey.isPressed)
             {
@@ -93,6 +93,23 @@ namespace Scenes.IngameScene
                 var c = map.TurnLeftPlayer();
                 pl.TurnLeft(() => AfterMove(c, false));
             }
+        }
+
+        private bool IsInputInvalidTime()
+        {
+            // ゲームスタート待ち
+            if (!isStart) return true;
+
+            // ポーズ中
+            if (IsPause()) return true;
+
+            // プレイヤーが動いている最中
+            if (pl.IsMove) return true;
+
+            // ゴールした
+            if (isGoal) return true;
+
+            return false;
         }
 
         private bool IsPause()
