@@ -25,7 +25,7 @@ namespace Scenes.IngameScene.DungeonMap
         public override bool CanMove => true;
         public override bool IsOpen => isOpen;
 
-        public override void ExecOnCellEvent()
+        public override void ExecOnCellEvent(DungeonScene ds)
         {
             isOnCell = true;
         }

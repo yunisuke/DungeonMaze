@@ -8,7 +8,7 @@ namespace Scenes.IngameScene.DungeonMiniMap
         [SerializeField] private RectTransform markerTr;
         [SerializeField] private MiniMapCell[] miniMapCells;
 
-        public void Update(MapData map)
+        public void UpdateMinimap(MapData map)
         {
             OpenCell(map);
             SetMarkerDirection(map.Position.d);

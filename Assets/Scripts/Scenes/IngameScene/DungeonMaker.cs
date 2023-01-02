@@ -86,6 +86,10 @@ namespace Scenes.IngameScene
                             obj = GameObject.Instantiate(Ground);
                             obj.transform.position = new Vector3(x, 0, -y);
                             break;  
+                        case CellType.Warp:
+                            obj = GameObject.Instantiate(Ground);
+                            obj.transform.position = new Vector3(x, 0, -y);
+                            break;
                     }
                 }
             }

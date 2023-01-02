@@ -102,6 +102,12 @@ namespace Scenes.IngameScene.DungeonMap
 
             return isAhead ? diff : -diff;
         }
+
+        public void Warp(int x, int y)
+        {
+            Position.x = x;
+            Position.y = y;
+        }
     }
 
     public enum CellType
@@ -112,6 +118,7 @@ namespace Scenes.IngameScene.DungeonMap
         DummyWall, // 偽物の壁。移動可能
         DarkZone, // 暗闇
         Goal, // ゴール
+        Warp, // ワープ
     }
 
     public class PlayerPosition

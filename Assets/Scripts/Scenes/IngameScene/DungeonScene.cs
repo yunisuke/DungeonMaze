@@ -45,7 +45,7 @@ namespace Scenes.IngameScene
 
             map = MapReader.ReadFile(IngameSceneParameter.SelectMap);
             mk.MakeDungeon(map);
-            miniMap.Update(map);
+            miniMap.UpdateMinimap(map);
 
             timer.SetFloorText(map.MapId.FileName);
             timer.SetStar2Time(map.Star2);
@@ -67,7 +67,7 @@ namespace Scenes.IngameScene
                 }
 
                 var c = map.MovePlayer(true);
-                pl.GoAhead(() => AfterMove(c));
+                pl.GoAhead(() => AfterMove(c, true));
             }
 
             if (Keyboard.current.downArrowKey.isPressed)
@@ -79,19 +79,19 @@ namespace Scenes.IngameScene
                 }
 
                 var c = map.MovePlayer(false);
-                pl.GoBack(() => AfterMove(c));
+                pl.GoBack(() => AfterMove(c, true));
             }
 
             if (Keyboard.current.rightArrowKey.isPressed)
             {
                 var c = map.TurnRightPlayer();
-                pl.TurnRight(() => AfterMove(c));
+                pl.TurnRight(() => AfterMove(c, false));
             }
 
             if (Keyboard.current.leftArrowKey.isPressed)
             {
                 var c = map.TurnLeftPlayer();
-                pl.TurnLeft(() => AfterMove(c));
+                pl.TurnLeft(() => AfterMove(c, false));
             }
         }
 
@@ -158,10 +158,10 @@ namespace Scenes.IngameScene
             SceneManager.LoadScene("IngameScene");
         }
 
-        private void AfterMove(BaseCell c)
+        private void AfterMove(BaseCell c, bool isMoveCell)
         {
-            c.ExecOnCellEvent();
-            miniMap.Update(map);
+            if (isMoveCell) c.ExecOnCellEvent(this);
+            miniMap.UpdateMinimap(map);
             if (c.CellType == CellType.Goal) GoalEffect();
         }
 
@@ -174,6 +174,22 @@ namespace Scenes.IngameScene
             SoundManager.Instance.PlaySE(SEType.Goal);
 
             DataManager.Instance.SaveUserData(map.MapId, timer.GetStar);
+        }
+
+        public void Warp(int warpNumber, WarpCell fromCell)
+        {
+            for(int y=0; y<map.Max_Y; y++)
+            {
+                for (int x=0; x<map.Max_X; x++)
+                {
+                    var cell = map.Cells[y, x];
+                    if (cell.GetType() == typeof(WarpCell) && cell != fromCell)
+                    {
+                        pl.transform.localPosition = new Vector3(x, 1, -y);
+                        map.Warp(x, y);
+                    }
+                }
+            }
         }
     }
 }

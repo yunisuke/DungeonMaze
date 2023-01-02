@@ -42,12 +42,12 @@ namespace Scenes.IngameScene.DungeonMap
             // マップ読み込み
             while (reader.Peek() != -1)
             {
-                string line = reader.ReadLine();
+                string[] columns = reader.ReadLine().Split(',');
                 int x = 0;
-                foreach (var s in line)
+                foreach (var c in columns)
                 {
-                    cells[y, x] = ChangeCell(s);
-                    if (s == 's') p = SetPlayerPosition(x, y, mh.pd);
+                    cells[y, x] = ChangeCell(c);
+                    if (c == "s") p = SetPlayerPosition(x, y, mh.pd);
                     x++;
                 }
                 y++;
@@ -92,9 +92,9 @@ namespace Scenes.IngameScene.DungeonMap
 
             while (reader.Peek() != -1)
             {
-                string line = reader.ReadLine();
+                string[] columns = reader.ReadLine().Split(',');
                 int x = 0;
-                foreach (var s in line)
+                foreach (var c in columns)
                 {
                     x++;
                 }
@@ -108,6 +108,10 @@ namespace Scenes.IngameScene.DungeonMap
             int maxY = 0;
 
             StringReader reader = new StringReader(txt.text);
+
+            // ヘッダー抜き出し
+            reader.ReadLine();
+
             while (reader.Peek() != -1)
             {
                 string line = reader.ReadLine();
@@ -116,24 +120,26 @@ namespace Scenes.IngameScene.DungeonMap
             return maxY;
         }
 
-        private static BaseCell ChangeCell(char c)
+        private static BaseCell ChangeCell(string s)
         {
-            switch(c)
+            switch(s.Substring(0,1))
             {
-                case '-':
+                case "-":
                     return new EmptyCell(CellType.Empty);
-                case 's':
+                case "s":
                     return new GroundCell(CellType.Ground);
-                case '#':
+                case "#":
                     return new WallCell(CellType.Wall);
-                case '*':
+                case "*":
                     return new DummyWallCell(CellType.DummyWall);
-                case ' ':
+                case " ":
                     return new GroundCell(CellType.Ground);
-                case 'd':
+                case "d":
                     return new DarkZoneCell(CellType.DarkZone);
-                case 'g':
+                case "g":
                     return new GroundCell(CellType.Goal);
+                case "w":
+                    return new WarpCell(s, CellType.Warp);
                 default:
                     return null;
             }
