@@ -12,6 +12,8 @@ namespace Scenes.IngameScene
         [SerializeField] private GameObject darkZone;
         [SerializeField] private GameObject Goal;
 
+        [SerializeField] private GameObject Warp;
+
         public void MakeDungeon(MapData map)
         {
             PutPrefabs(map);
@@ -87,8 +89,11 @@ namespace Scenes.IngameScene
                             obj.transform.position = new Vector3(x, 0, -y);
                             break;  
                         case CellType.Warp:
-                            obj = GameObject.Instantiate(Ground);
-                            obj.transform.position = new Vector3(x, 0, -y);
+                            obj = GameObject.Instantiate(Warp);
+                            obj.transform.position = new Vector3(x, 1, -y);
+
+                            var obj3 = GameObject.Instantiate(Ground);
+                            obj3.transform.position = new Vector3(x, 0, -y);
                             break;
                     }
                 }

@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+using System;
 
 namespace Scenes.IngameScene.DungeonMap
 {
@@ -16,7 +19,7 @@ namespace Scenes.IngameScene.DungeonMap
         public abstract Color CellColor {get;}
         public abstract bool CanMove {get;}
         public abstract bool IsOpen {get;}
-        public virtual void ExecOnCellEvent(DungeonScene ds) {}
+        public virtual Func<IEnumerator> ExecOnCellEvent(DungeonScene ds) {return null;}
         public virtual void ExecIntoSightCellEvent()
         {
             isOpen = true;

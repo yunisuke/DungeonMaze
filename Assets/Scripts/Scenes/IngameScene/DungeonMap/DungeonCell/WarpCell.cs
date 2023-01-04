@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Scenes.IngameScene.DungeonMap
 {
@@ -33,10 +35,10 @@ namespace Scenes.IngameScene.DungeonMap
             this.warpType = GetWarpType(warpType);
         }
 
-        public override void ExecOnCellEvent(DungeonScene ds)
+        public override Func<IEnumerator> ExecOnCellEvent(DungeonScene ds)
         {
-            if (warpType == WarpType.Goal) return;
-            ds.Warp(warpNum, this);
+            if (warpType == WarpType.Goal) return null;
+            return () => ds.Warp(warpNum, this);
         }
 
         private WarpType GetWarpType(string s)

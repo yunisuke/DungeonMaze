@@ -107,6 +107,7 @@ namespace Manager
             "Step",
             "HitWall",
             "Goal",
+            "Warp"
         };
 
         private readonly string[] Voice_Names = {
@@ -123,6 +124,7 @@ namespace Manager
         Step,
         HitWall,
         Goal,
+        Warp,
     }
 
     public enum VoiceType {

@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.Events;
+using System.Collections;
+using System;
 
 namespace Scenes.IngameScene.DungeonMap
 {
@@ -25,9 +28,10 @@ namespace Scenes.IngameScene.DungeonMap
         public override bool CanMove => true;
         public override bool IsOpen => isOpen;
 
-        public override void ExecOnCellEvent(DungeonScene ds)
+        public override Func<IEnumerator> ExecOnCellEvent(DungeonScene ds)
         {
             isOnCell = true;
+            return null;
         }
 
         public DummyWallCell(CellType type) : base(type)

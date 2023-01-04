@@ -1,10 +1,14 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Manager;
 using Scenes.TitleScene;
 using Scenes.IngameScene.DungeonMap;
 using Scenes.IngameScene.DungeonMiniMap;
+using DG.Tweening;
 
 namespace Scenes.IngameScene
 {
@@ -22,10 +26,12 @@ namespace Scenes.IngameScene
         [SerializeField] private MiniMap miniMap;
         [SerializeField] private Timer timer;
         [SerializeField] private GameObject controller;
+        [SerializeField] private Image whiteout;
 
         private MapData map;
         private bool isGoal = false;
         private bool isStart = false;
+        private bool isMoveCell = false;
 
         void Awake()
         {
@@ -60,38 +66,42 @@ namespace Scenes.IngameScene
 
             if (Keyboard.current.upArrowKey.isPressed)
             {
+                isMoveCell = true;
                 if (map.EnableMove(true) == false)
                 {
                     pl.HitWallAhead();
+                    isMoveCell = false;
                     return;
                 }
 
                 var c = map.MovePlayer(true);
-                pl.GoAhead(() => AfterMove(c, true));
+                pl.GoAhead(() => StartCoroutine(AfterMove(c, true)));
             }
 
             if (Keyboard.current.downArrowKey.isPressed)
             {
+                isMoveCell = true;
                 if (map.EnableMove(false) == false)
                 {
                     pl.HitWallBack();
+                    isMoveCell = false;
                     return;
                 }
 
                 var c = map.MovePlayer(false);
-                pl.GoBack(() => AfterMove(c, true));
+                pl.GoBack(() => StartCoroutine(AfterMove(c, true)));
             }
 
             if (Keyboard.current.rightArrowKey.isPressed)
             {
                 var c = map.TurnRightPlayer();
-                pl.TurnRight(() => AfterMove(c, false));
+                pl.TurnRight(() => StartCoroutine(AfterMove(c, false)));
             }
 
             if (Keyboard.current.leftArrowKey.isPressed)
             {
                 var c = map.TurnLeftPlayer();
-                pl.TurnLeft(() => AfterMove(c, false));
+                pl.TurnLeft(() => StartCoroutine(AfterMove(c, false)));
             }
         }
 
@@ -104,7 +114,7 @@ namespace Scenes.IngameScene
             if (IsPause()) return true;
 
             // プレイヤーが動いている最中
-            if (pl.IsMove) return true;
+            if (pl.IsMove || isMoveCell) return true;
 
             // ゴールした
             if (isGoal) return true;
@@ -175,11 +185,19 @@ namespace Scenes.IngameScene
             SceneManager.LoadScene("IngameScene");
         }
 
-        private void AfterMove(BaseCell c, bool isMoveCell)
+        private IEnumerator AfterMove(BaseCell c, bool isMoveCell)
         {
-            if (isMoveCell) c.ExecOnCellEvent(this);
+            if (isMoveCell) {
+                var func = c.ExecOnCellEvent(this);
+                if (func != null)
+                {
+                    miniMap.UpdateMinimap(map);
+                    yield return StartCoroutine(func.Invoke());
+                }
+            }
             miniMap.UpdateMinimap(map);
             if (c.CellType == CellType.Goal) GoalEffect();
+            this.isMoveCell = false;
         }
 
         private void GoalEffect()
@@ -193,7 +211,13 @@ namespace Scenes.IngameScene
             DataManager.Instance.SaveUserData(map.MapId, timer.GetStar);
         }
 
-        public void Warp(int warpNumber, WarpCell fromCell)
+        public IEnumerator Warp(int warpNumber, WarpCell fromCell)
+        {
+            SoundManager.Instance.PlaySE(SEType.Warp);
+            yield return StartCoroutine(WarpEffect(() => WarpExec(fromCell)));
+        }
+
+        private void WarpExec(WarpCell fromCell)
         {
             for(int y=0; y<map.Max_Y; y++)
             {
@@ -207,6 +231,34 @@ namespace Scenes.IngameScene
                     }
                 }
             }
+        }
+
+        private IEnumerator WarpEffect(UnityAction callback)
+        {
+            // 初期化
+            whiteout.gameObject.SetActive(true);
+            var col = whiteout.color;
+            col.a = 0;
+            whiteout.color = col;
+
+            // ホワイトアウト
+            bool isEndEffect = false;
+            whiteout.DOFade(1, 0.5f).OnComplete(()=>isEndEffect = true);
+            while(!isEndEffect) {
+                yield return null;
+            }
+            
+            // コールバック実行
+            callback.Invoke();
+
+            // ホワイトアウト解除
+            isEndEffect = false;
+            whiteout.DOFade(0, 0.5f).OnComplete(()=>isEndEffect = true);
+            while(!isEndEffect) {
+                yield return null;
+            }
+
+            yield return null;
         }
     }
 }
