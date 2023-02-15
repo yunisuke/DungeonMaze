@@ -20,7 +20,7 @@ namespace Scenes.IngameScene
             SetPlayerPosition(map.Position);
         }
 
-        private void SetPlayerPosition(PlayerPosition p)
+        public void SetPlayerPosition(PlayerPosition p)
         {
             pl.transform.position = new Vector3(p.x, 1, -p.y);
             pl.transform.eulerAngles = GetPlayerRotation(p.d);

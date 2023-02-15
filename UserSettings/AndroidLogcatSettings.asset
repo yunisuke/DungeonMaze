@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "R3CT80Q304V",
         "name": "com.DefaultCompany.DungeonMaze",
-        "processId": 11663,
+        "processId": 30021,
         "exited": false
     },
     "m_SelectedPriority": 0,
@@ -141,6 +141,96 @@
             "exited": false
         },
         {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 10093,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 11675,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 12237,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 13488,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 28390,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 21649,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 7838,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 13029,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 11384,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 13780,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 16866,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 12946,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 12250,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 32435,
+            "exited": false
+        },
+        {
+            "deviceId": "R3CT80Q304V",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 30021,
+            "exited": false
+        },
+        {
             "deviceId": "988a9b37414753384f",
             "name": "com.DefaultCompany.DungeonMaze",
             "processId": 26760,
@@ -150,6 +240,12 @@
             "deviceId": "988a9b37414753384f",
             "name": "com.DefaultCompany.DungeonMaze",
             "processId": 2195,
+            "exited": false
+        },
+        {
+            "deviceId": "988a9b37414753384f",
+            "name": "com.DefaultCompany.DungeonMaze",
+            "processId": 24621,
             "exited": false
         }
     ],

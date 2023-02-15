@@ -30,7 +30,7 @@ namespace Scenes.TitleScene
         public void OnClickStartButton(MapId mapId)
         {
             IngameSceneParameter.SelectMap = mapId;
-            SceneManager.LoadSceneAsync("IngameScene");
+            SceneManager.LoadSceneAsync("DungeonBase");
         }
 
         public void OnClickDeleteSave()

@@ -17,16 +17,7 @@ namespace Scenes.IngameScene
         [SerializeField] private DungeonMaker mk;
         [SerializeField] private Player pl;
 
-        [Header("Screen")]
-        [SerializeField] private GameObject startScreen;
-        [SerializeField] private GoalScreen goalScreen;
-        [SerializeField] private GameObject pauseScreen;
-
-        [Header("UI")]
-        [SerializeField] private MiniMap miniMap;
-        [SerializeField] private Timer timer;
-        [SerializeField] private GameObject controller;
-        [SerializeField] private Image whiteout;
+        public DungeonUIPanel uiPanel;
 
         private MapData map;
         private bool isGoal = false;
@@ -41,7 +32,13 @@ namespace Scenes.IngameScene
 
             DataManager.Instance.Initialize();
 
-            controller.SetActive(false);
+            uiPanel.SetActiveController(false);
+            uiPanel.OnClickStartButtonAction = OnClickStartButton;
+            uiPanel.OnClickHomeButtonAction = OnClickHomeButton;
+            uiPanel.OnClickRetryButtonAction = OnClickRetryButton;
+            uiPanel.OnClickNextStageButtonAction = OnClickNextStage;
+            uiPanel.OnClickPlayButtonAction = OnClickPlayButton;
+            uiPanel.OnClickPauseButtonAction = OnClickPauseButton;
         }
 
         // Start is called before the first frame update
@@ -50,14 +47,11 @@ namespace Scenes.IngameScene
             AdManager.Instance.ShowAds();
 
             map = MapReader.ReadFile(IngameSceneParameter.SelectMap);
-            mk.MakeDungeon(map);
-            miniMap.UpdateMinimap(map);
-
-            timer.SetFloorText(map.MapId.FileName);
-            timer.SetStar2Time(map.Star2);
-            timer.SetStar3Time(map.Star3);
-
-            startScreen.SetActive(true);
+            mk.SetPlayerPosition(map.Position);
+            //mk.MakeDungeon(map);
+            uiPanel.UpdateMinimap(map);
+            uiPanel.SetTimer(map);
+            uiPanel.SetActiveStartScreen(true);
         }
 
         void Update()
@@ -124,7 +118,7 @@ namespace Scenes.IngameScene
 
         private bool IsPause()
         {
-            return pauseScreen.activeSelf;
+            return uiPanel.IsActivePauseScreen();
         }
 
         void OnApplicationFocus(bool isFocus)
@@ -137,14 +131,14 @@ namespace Scenes.IngameScene
 
         public void OnClickStartButton()
         {
-            startScreen.SetActive(false);
-            timer.StartTimer();
-            controller.SetActive(true);
+            uiPanel.SetActiveStartScreen(false);
+            uiPanel.StartTimer();
+            uiPanel.SetActiveController(true);
 
             isStart = true;
         }
 
-        public void OnClickReturnButton()
+        public void OnClickHomeButton()
         {
             AdManager.Instance.HideAds();
             AdManager.Instance.HideMediumAds();
@@ -163,20 +157,20 @@ namespace Scenes.IngameScene
             AdManager.Instance.HideAds();
             AdManager.Instance.ShowMediumAds();
 
-            timer.StopTimer();
-            pauseScreen.SetActive(true);
+            uiPanel.StopTimer();
+            uiPanel.SetActivePauseScreen(true);
         }
 
-        public void OnClickContinueButton()
+        public void OnClickPlayButton()
         {
             AdManager.Instance.ShowAds();
             AdManager.Instance.HideMediumAds();
 
-            timer.StartTimer();
-            pauseScreen.SetActive(false);
+            uiPanel.StartTimer();
+            uiPanel.SetActivePauseScreen(false);
         }
 
-        public void OnClickNextLevel()
+        public void OnClickNextStage()
         {
             IngameSceneParameter.SelectMap = DataManager.Instance.GetNextStage(IngameSceneParameter.SelectMap);
 
@@ -191,11 +185,11 @@ namespace Scenes.IngameScene
                 var func = c.ExecOnCellEvent(this);
                 if (func != null)
                 {
-                    miniMap.UpdateMinimap(map);
+                    uiPanel.UpdateMinimap(map);
                     yield return StartCoroutine(func.Invoke());
                 }
             }
-            miniMap.UpdateMinimap(map);
+            uiPanel.UpdateMinimap(map);
             if (c.CellType == CellType.Goal) GoalEffect();
             this.isMoveCell = false;
         }
@@ -203,12 +197,11 @@ namespace Scenes.IngameScene
         private void GoalEffect()
         {
             isGoal = true;
-            timer.StopTimer();
+            uiPanel.StopTimer();
 
-            goalScreen.OpenScreen(map.MapId, timer.TimeText, timer.GetStar);
+            uiPanel.OpenGoalScreen(map);
             SoundManager.Instance.PlaySE(SEType.Goal);
-
-            DataManager.Instance.SaveUserData(map.MapId, timer.GetStar);
+            DataManager.Instance.SaveUserData(map.MapId, uiPanel.GetTimerStar());
         }
 
         public IEnumerator Warp(int warpNumber, WarpCell fromCell)
@@ -235,6 +228,8 @@ namespace Scenes.IngameScene
 
         private IEnumerator WarpEffect(UnityAction callback)
         {
+            var whiteout = uiPanel.whiteout;
+
             // 初期化
             whiteout.gameObject.SetActive(true);
             var col = whiteout.color;
