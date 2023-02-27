@@ -14,7 +14,6 @@ namespace Scenes.IngameScene
 {
     public class DungeonScene : MonoBehaviour
     {
-        [SerializeField] private DungeonMaker mk;
         [SerializeField] private Player pl;
 
         public DungeonUIPanel uiPanel;
@@ -47,8 +46,7 @@ namespace Scenes.IngameScene
             AdManager.Instance.ShowAds();
 
             map = MapReader.ReadFile(IngameSceneParameter.SelectMap);
-            mk.SetPlayerPosition(map.Position);
-            //mk.MakeDungeon(map);
+            SetPlayerPosition(map.Position);
             uiPanel.UpdateMinimap(map);
             uiPanel.SetTimer(map);
             uiPanel.SetActiveStartScreen(true);
@@ -97,6 +95,36 @@ namespace Scenes.IngameScene
                 var c = map.TurnLeftPlayer();
                 pl.TurnLeft(() => StartCoroutine(AfterMove(c, false)));
             }
+        }
+
+        private void SetPlayerPosition(PlayerPosition p)
+        {
+            pl.transform.position = new Vector3(p.x, 1, -p.y);
+            pl.transform.eulerAngles = GetPlayerRotation(p.d);
+        }
+
+        private Vector3 GetPlayerRotation(Direction d)
+        {
+            int dic;
+            switch(d)
+            {
+                case Direction.North:
+                    dic = 0;
+                    break;
+                case Direction.South:
+                    dic = 180;
+                    break;
+                case Direction.West:
+                    dic = 270;
+                    break;
+                case Direction.East:
+                    dic = 90;
+                    break;
+                default:
+                    dic = 0;
+                    break;
+            }
+            return new Vector3(0, dic, 0);
         }
 
         private bool IsInputInvalidTime()
@@ -176,7 +204,7 @@ namespace Scenes.IngameScene
 
             AdManager.Instance.HideAds();
             AdManager.Instance.HideMediumAds();
-            SceneManager.LoadScene("IngameScene");
+            SceneManager.LoadScene("DungeonBase");
         }
 
         private IEnumerator AfterMove(BaseCell c, bool isMoveCell)

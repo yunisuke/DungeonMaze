@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scenes.TitleScene;
 
 namespace Scenes.IngameScene
 {
@@ -15,7 +16,7 @@ namespace Scenes.IngameScene
         // Start is called before the first frame update
         void Start()
         {
-            SceneManager.LoadSceneAsync("1", LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(IngameSceneParameter.SelectMap.FileName, LoadSceneMode.Additive);
             SceneManager.LoadSceneAsync("DungeonUIScene", LoadSceneMode.Additive);
             
         }
