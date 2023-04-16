@@ -177,7 +177,7 @@ namespace Scenes.IngameScene
         {
             AdManager.Instance.HideAds();
             AdManager.Instance.HideMediumAds();
-            SceneManager.LoadScene("IngameScene");
+            SceneManager.LoadScene("DungeonBase");
         }
 
         public void OnClickPauseButton()
@@ -232,20 +232,27 @@ namespace Scenes.IngameScene
             DataManager.Instance.SaveUserData(map.MapId, uiPanel.GetTimerStar());
         }
 
-        public IEnumerator Warp(int warpNumber, WarpCell fromCell)
+        public IEnumerator Warp(WarpCell fromCell)
         {
-            SoundManager.Instance.PlaySE(SEType.Warp);
-            yield return StartCoroutine(WarpEffect(() => WarpExec(fromCell)));
+            if (fromCell.ExistEffect)
+            {
+                SoundManager.Instance.PlaySE(SEType.Warp);
+                yield return StartCoroutine(WarpEffect(() => WarpExec(fromCell)));
+            }
+            else
+            {
+                WarpExec(fromCell);
+            }
         }
 
-        private void WarpExec(WarpCell fromCell)
+        public void WarpExec(WarpCell fromCell)
         {
             for(int y=0; y<map.Max_Y; y++)
             {
                 for (int x=0; x<map.Max_X; x++)
                 {
                     var cell = map.Cells[y, x];
-                    if (cell.GetType() == typeof(WarpCell) && cell != fromCell)
+                    if (cell.GetType() == typeof(WarpCell) && cell != fromCell && ((WarpCell)cell).WarpNum == fromCell.WarpNum)
                     {
                         pl.transform.localPosition = new Vector3(x, 1, -y);
                         map.Warp(x, y);

@@ -9049,11 +9049,21 @@ MonoBehaviour:
   darkZone: {fileID: 1894287771218454425, guid: fc5487bbbff0f49e1bb7f63f45f6b132,
     type: 3}
   Goal: {fileID: 3531502615031760564, guid: 61630c3c64d0c4893a3cdd21742140aa, type: 3}
-  Warp: {fileID: 3299173359099991172, guid: 750d663ccc30b4271831d5362c5b09fa, type: 3}
+  Warps:
+  - {fileID: 3299173359099991172, guid: 750d663ccc30b4271831d5362c5b09fa, type: 3}
+  - {fileID: 4629623353559610478, guid: 6e90d8e54dd82440ca0668c1c1493c5c, type: 3}
+  - {fileID: 3397619128922672745, guid: f1b31e1ada8d1472fb50f1a6f393e81f, type: 3}
+  - {fileID: 8376768511874103159, guid: 0371acd07c2d14abd97b48bf03f37c4b, type: 3}
+  - {fileID: 736984445183348384, guid: 12bf5fb63b04e433fad478d8af1cd46a, type: 3}
+  - {fileID: 4359168774212434386, guid: 77f70093a07cd4d4b814c0d3ea66f3a7, type: 3}
+  - {fileID: 4151617724212411806, guid: 28ebfc86faf024587b93df715cb733df, type: 3}
+  - {fileID: 359574290089618416, guid: 5411b90601c464f879e72efa8cb1a25f, type: 3}
+  - {fileID: 1756230812575799673, guid: ebbd3f16e723845b988cc0810d695e48, type: 3}
+  - {fileID: 8888513187209135273, guid: fad5b0f5d258b4f13958df02e55541f2, type: 3}
   DungeonContainer: {fileID: 1521947116}
   GoalContainer: {fileID: 9307419}
   MapId:
-    FileName: 2
+    FileName: 17
 --- !u!1 &1401651070
 GameObject:
   m_ObjectHideFlags: 0

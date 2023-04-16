@@ -11,8 +11,9 @@ namespace Scenes.IngameScene.DungeonMap
         public override bool CanMove {get {return true;}}
         public override bool IsOpen {get {return isOpen;}}
 
-        private int warpNum;
-        private WarpType warpType;
+        public int WarpNum {get; private set;}
+        public WarpType Type {get; private set;}
+        public bool ExistEffect {get; private set;}
 
         public WarpCell(string s, CellType type) : base(type)
         {
@@ -31,14 +32,20 @@ namespace Scenes.IngameScene.DungeonMap
                 Debug.LogError("ワープタイプの指定が間違っています。※[nsg]のみ有効");
             }
 
-            this.warpNum = Int32.Parse(warpNum);
-            this.warpType = GetWarpType(warpType);
+            var existEffect = s.Substring(3, 1);
+            if (System.Text.RegularExpressions.Regex.IsMatch(existEffect, "[ef]") == false) {
+                Debug.LogError("演出有無の指定が間違っています。※[ef]のみ有効");
+            }
+
+            this.WarpNum = Int32.Parse(warpNum);
+            this.Type = GetWarpType(warpType);
+            this.ExistEffect = GetEffectType(existEffect);
         }
 
         public override Func<IEnumerator> ExecOnCellEvent(DungeonScene ds)
         {
-            if (warpType == WarpType.Goal) return null;
-            return () => ds.Warp(warpNum, this);
+            if (Type == WarpType.Goal) return null;
+            return () => ds.Warp(this);
         }
 
         private WarpType GetWarpType(string s)
@@ -56,7 +63,20 @@ namespace Scenes.IngameScene.DungeonMap
             }
         }
 
-        private enum WarpType
+        private bool GetEffectType(string s)
+        {
+            switch(s)
+            {
+                case "e":
+                    return true;
+                case "f":
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        public enum WarpType
         {
             Normal, // 双方向ワープ
             Start, // ワープスタート地点(一方向)

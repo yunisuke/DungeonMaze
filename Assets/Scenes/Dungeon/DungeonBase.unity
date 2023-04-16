@@ -20,7 +20,7 @@ RenderSettings:
   m_FogMode: 1
   m_FogDensity: 1
   m_LinearFogStart: 0
-  m_LinearFogEnd: 7.5
+  m_LinearFogEnd: 7.2
   m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -218,59 +218,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!1 &183625048
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 183625050}
-  - component: {fileID: 183625049}
-  m_Layer: 0
-  m_Name: DungeonMaker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &183625049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183625048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 264e24f643b2949fbac29adf6266e5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pl: {fileID: 1965044669}
-  Ground: {fileID: 3760630705928149881, guid: 6e2fb9b91c554488faa7cce642a00cb2, type: 3}
-  Wall: {fileID: 8377003651132715320, guid: 02b7048387ea1498496ef79caaa5cd9c, type: 3}
-  DummyWall: {fileID: 3274836518958251052, guid: 3bc2fc97fd3ee4699afa2245cffe80e2,
-    type: 3}
-  darkZone: {fileID: 1894287771218454425, guid: fc5487bbbff0f49e1bb7f63f45f6b132,
-    type: 3}
-  Goal: {fileID: 3531502615031760564, guid: 61630c3c64d0c4893a3cdd21742140aa, type: 3}
-  Warp: {fileID: 3299173359099991172, guid: 750d663ccc30b4271831d5362c5b09fa, type: 3}
---- !u!4 &183625050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183625048}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 588552955}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &588552953
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12d2f026c5ad9497ebab8ed4719108eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mk: {fileID: 183625049}
   pl: {fileID: 1965044669}
   uiPanel: {fileID: 0}
 --- !u!4 &588552955
@@ -314,8 +260,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 99.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 183625050}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

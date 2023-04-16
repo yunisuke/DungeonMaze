@@ -19,37 +19,59 @@ namespace Scenes.IngameScene.DungeonMiniMap
         {
             map.Cells[map.Position.y, map.Position.x].ExecIntoSightCellEvent(); // 現在位置をオープン
 
+            // 現在のセルがダークゾーンの場合は開放されない
+            var nowCell = map.GetNowCell();
+            if (nowCell.CellType == CellType.DarkZone) return;
+
+            (int x, int y) front = (0, 0);
+            (int x, int y) right = (0, 0);
+            (int x, int y) left = (0, 0);
+            (int x, int y) fRight = (0, 0);
+            (int x, int y) fLeft = (0, 0);
+
             switch(map.Position.d)
             {
             case Direction.North:
-                Open(map.Position.x,     map.Position.y - 1, map); // 正面
-                Open(map.Position.x + 1, map.Position.y - 1, map); // 右正面
-                Open(map.Position.x - 1, map.Position.y - 1, map); // 左正面
-                Open(map.Position.x + 1, map.Position.y,     map); // 右
-                Open(map.Position.x - 1, map.Position.y,     map); // 左
+                front  = (map.Position.x,     map.Position.y - 1); // 正面
+                right  = (map.Position.x + 1, map.Position.y);     // 右
+                left   = (map.Position.x - 1, map.Position.y);     // 左
+                fRight = (map.Position.x + 1, map.Position.y - 1); // 右正面
+                fLeft  = (map.Position.x - 1, map.Position.y - 1); // 左正面
                 break;
             case Direction.South:
-                Open(map.Position.x,     map.Position.y + 1, map); // 正面
-                Open(map.Position.x - 1, map.Position.y + 1, map); // 右正面
-                Open(map.Position.x + 1, map.Position.y + 1, map); // 左正面
-                Open(map.Position.x - 1, map.Position.y,     map); // 右
-                Open(map.Position.x + 1, map.Position.y,     map); // 左
+                front  = (map.Position.x,     map.Position.y + 1); // 正面
+                right  = (map.Position.x - 1, map.Position.y);     // 右
+                left   = (map.Position.x + 1, map.Position.y);     // 左
+                fRight = (map.Position.x - 1, map.Position.y + 1); // 右正面
+                fLeft  = (map.Position.x + 1, map.Position.y + 1); // 左正面
                 break;
             case Direction.West:
-                Open(map.Position.x - 1, map.Position.y,     map); // 正面
-                Open(map.Position.x - 1, map.Position.y - 1, map); // 右正面
-                Open(map.Position.x - 1, map.Position.y + 1, map); // 左正面
-                Open(map.Position.x,     map.Position.y - 1, map); // 右
-                Open(map.Position.x,     map.Position.y + 1, map); // 左
+                front  = (map.Position.x - 1, map.Position.y);     // 正面
+                right  = (map.Position.x,     map.Position.y - 1); // 右
+                left   = (map.Position.x,     map.Position.y + 1); // 左
+                fRight = (map.Position.x - 1, map.Position.y - 1); // 右正面
+                fLeft  = (map.Position.x - 1, map.Position.y + 1); // 左正面
                 break;
             case Direction.East:
-                Open(map.Position.x + 1, map.Position.y,    map); // 正面
-                Open(map.Position.x + 1, map.Position.y + 1, map); // 右正面
-                Open(map.Position.x + 1, map.Position.y - 1, map); // 左正面
-                Open(map.Position.x,     map.Position.y + 1, map); // 右
-                Open(map.Position.x,     map.Position.y - 1, map); // 左
+                front  = (map.Position.x + 1, map.Position.y);     // 正面
+                right  = (map.Position.x,     map.Position.y + 1); // 右
+                left   = (map.Position.x,     map.Position.y - 1); // 左
+                fRight = (map.Position.x + 1, map.Position.y + 1); // 右正面
+                fLeft  = (map.Position.x + 1, map.Position.y - 1); // 左正面
                 break;
             }
+
+            Open(front.x, front.y, map); // 正面
+            Open(right.x, right.y, map); // 右
+            Open(left.x,  left.y,  map); // 左
+
+            // 正面セルが壁やダークゾーンの場合は右正面、左正面は開放されない
+            var frontCell = map.Cells[front.y, front.x];
+            var rightCell = map.Cells[right.y, right.x];
+            var leftCell =  map.Cells[left.y,  left.x];
+
+            if (frontCell.IsBlockCell() == false || rightCell.IsBlockCell() == false) Open(fRight.x, fRight.y, map); // 右正面
+            if (frontCell.IsBlockCell() == false || leftCell.IsBlockCell() == false)  Open(fLeft.x,  fLeft.y,  map); // 左正面
         }
 
         private void Open(int x, int y, MapData map)

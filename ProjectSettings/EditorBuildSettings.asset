@@ -9,17 +9,65 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScene.unity
     guid: edc30b3060ca54335aa48e078723429c
   - enabled: 1
-    path: Assets/Scenes/IngameScene.unity
+    path: Assets/Scenes/DungeonMake.unity
     guid: 1bf89083dcb784ef7a231da33bb1a958
   - enabled: 1
-    path: Assets/Scenes/DungeonUIScene.unity
+    path: Assets/Scenes/Dungeon/DungeonUIScene.unity
     guid: cd9e157adde8c410992c8f13a6c4304c
+  - enabled: 1
+    path: Assets/Scenes/Dungeon/DungeonBase.unity
+    guid: bd625516b7cff41b199df6c1b5bb8be5
   - enabled: 1
     path: Assets/Scenes/Stage/1.unity
     guid: acecb7792ecf14a82b904834fc52f4f7
   - enabled: 1
-    path: Assets/Scenes/DungeonBase.unity
-    guid: bd625516b7cff41b199df6c1b5bb8be5
+    path: Assets/Scenes/Stage/2.unity
+    guid: 53d84c3ca4aac4e619312582bf1f40bb
+  - enabled: 1
+    path: Assets/Scenes/Stage/3.unity
+    guid: f7f0a813df3124a038288a32042315d8
+  - enabled: 1
+    path: Assets/Scenes/Stage/4.unity
+    guid: 9f5b0a27255694c6087ced4d8ba0c9e0
+  - enabled: 1
+    path: Assets/Scenes/Stage/5.unity
+    guid: da763eb91983644ccae3d554c0152717
+  - enabled: 1
+    path: Assets/Scenes/Stage/6.unity
+    guid: cbe6d75d46baa45a3a6cbb9451e0bed5
+  - enabled: 1
+    path: Assets/Scenes/Stage/7.unity
+    guid: 65d36469af79a4a4ca0e56f83b537b24
+  - enabled: 1
+    path: Assets/Scenes/Stage/8.unity
+    guid: e6a389d4d2226482b925e0212c533cb2
+  - enabled: 1
+    path: Assets/Scenes/Stage/9.unity
+    guid: 0cdaa4d800c8d48c6a08dc81bf30bab3
+  - enabled: 1
+    path: Assets/Scenes/Stage/10.unity
+    guid: b298d57d3c66745e8ac4a5adc0cdee9f
+  - enabled: 1
+    path: Assets/Scenes/Stage/11.unity
+    guid: 25fd7164b213045449564783a97fa369
+  - enabled: 1
+    path: Assets/Scenes/Stage/12.unity
+    guid: 62458fb5459274b68b09ede2079b1e5a
+  - enabled: 1
+    path: Assets/Scenes/Stage/13.unity
+    guid: 87ac6b15566824b1993e98eddd094bb7
+  - enabled: 1
+    path: Assets/Scenes/Stage/14.unity
+    guid: 359e3f9c4925c43dea6c946265f1be75
+  - enabled: 1
+    path: Assets/Scenes/Stage/15.unity
+    guid: 7e25d3372feb14d91a1e27ed32c6309a
+  - enabled: 1
+    path: Assets/Scenes/Stage/16.unity
+    guid: e25ed43739d9d4a32af5e301f42faf5c
+  - enabled: 1
+    path: Assets/Scenes/Stage/17.unity
+    guid: bcad6338d7e304c999eb6aa5de7c598d
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 83c3291ac25684fc6afa06f5381b8dc7,
       type: 2}

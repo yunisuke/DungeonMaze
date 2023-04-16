@@ -108,6 +108,11 @@ namespace Scenes.IngameScene.DungeonMap
             Position.x = x;
             Position.y = y;
         }
+
+        public BaseCell GetNowCell()
+        {
+            return Cells[Position.y, Position.x];
+        }
     }
 
     public enum CellType

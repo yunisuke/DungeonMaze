@@ -1,6 +1,5 @@
 using UnityEngine;
 using Scenes.IngameScene.DungeonMap;
-using Scenes.TitleScene;
 
 namespace Scenes.IngameScene
 {
@@ -15,7 +14,7 @@ namespace Scenes.IngameScene
         [SerializeField] private GameObject DummyWall;
         [SerializeField] private GameObject darkZone;
         [SerializeField] private GameObject Goal;
-        [SerializeField] private GameObject Warp;
+        [SerializeField] private GameObject[] Warps;
 
         [Header("Dungeon Container")]
         [SerializeField] private GameObject DungeonContainer;
@@ -92,9 +91,16 @@ namespace Scenes.IngameScene
                             PutInDungeonContainer(obj);
                             break;  
                         case CellType.Warp:
-                            obj = GameObject.Instantiate(Warp);
-                            obj.transform.position = new Vector3(x, 1, -y);
-                            PutInDungeonContainer(obj);
+                            var warpCell = (WarpCell)c;
+
+                            if (warpCell.ExistEffect && warpCell.Type != WarpCell.WarpType.Goal)
+                            {
+                                var warpObj = Warps[warpCell.WarpNum];
+
+                                obj = GameObject.Instantiate(warpObj);
+                                obj.transform.position = new Vector3(x, 1, -y);
+                                PutInDungeonContainer(obj);
+                            }
 
                             var obj3 = GameObject.Instantiate(Ground);
                             obj3.transform.position = new Vector3(x, 0, -y);

@@ -20,7 +20,6 @@ namespace Scenes.IngameScene.DungeonMap
 
             var fileName = mapId.FileName;
             TextAsset txt = Resources.Load("MapFile/" + fileName) as TextAsset;
-
             var map = CreateMap(mapId, txt);
             return map;
         }

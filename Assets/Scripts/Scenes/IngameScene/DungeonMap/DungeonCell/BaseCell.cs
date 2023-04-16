@@ -24,5 +24,11 @@ namespace Scenes.IngameScene.DungeonMap
         {
             isOpen = true;
         }
+
+        public bool IsBlockCell()
+        {
+            if (type == CellType.Wall || type == CellType.DummyWall || type == CellType.DarkZone) return true;
+            return false;
+        }
     }
 }
