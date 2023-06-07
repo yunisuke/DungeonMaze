@@ -28,16 +28,25 @@ namespace Scenes.TitleScene
         public void SetStageSelectView()
         {
             List<MapId> stageList = DataManager.Instance.mapIdList;
-            bool canChallengeStage = true;
+            bool canChallengeNextStage = true;
 
             for(int i=0; i<stageList.Count; i++)
             {
                 MapId mapId = stageList[i];
                 ClearData clearData = DataManager.Instance.GetClearData(mapId);
+                if (mapId.FileName == "34" && CanChallengeLastStage(DataManager.Instance.GetTotalClearStarNum()) == false) continue;
 
-                CreatePrefab(mapId.FileName, clearData.GetStar, canChallengeStage);
-                if (clearData.GetStar == 0) canChallengeStage = false;
+                CreatePrefab(mapId.FileName, clearData.GetStar, canChallengeNextStage);
+                if (clearData.GetStar == 0) canChallengeNextStage = false;
             }
+        }
+
+        /// <summary>
+        /// 最終ステージは99個の星を取得している場合のみ挑戦可能
+        /// </summary>
+        private bool CanChallengeLastStage(int totalClearStarNum)
+        {
+            return totalClearStarNum >= 99;
         }
 
         public void SetTotalClearStarNumText(int totalClearStarNum)
