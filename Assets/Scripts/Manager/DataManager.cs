@@ -102,5 +102,30 @@ namespace Manager
             MapId id = GetNextStage(mapId);
             return id != null;
         }
+
+        /// <summary>
+        /// 獲得した星の合計を返す
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalClearStarNum()
+        {
+            // clearDataDicのGetStarの合計を返す
+            int total = 0;
+            foreach(var cd in clearDataDic.Values)
+            {
+                total += cd.GetStar;
+            }
+
+            return total;
+        }
+
+        /// <summary>
+        /// ステージの総数を返す
+        /// </summary>
+        /// <returns></returns>
+        public int GetTotalStageNum()
+        {
+            return mapIdList.Count;
+        }
     }
 }

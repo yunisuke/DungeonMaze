@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using Manager;
 using System.Collections.Generic;
 using Data;
+using TMPro;
 
 namespace Scenes.TitleScene
 {
@@ -11,12 +12,16 @@ namespace Scenes.TitleScene
         [SerializeField] private StageButton buttonPrefab;
         [SerializeField] private RectTransform buttonContainer;
         [SerializeField] private GameObject deleteDataButton;
+        [SerializeField] private TextMeshProUGUI totalClearStarNumText;
+        [SerializeField] private TextMeshProUGUI totalStageStarNumText;
 
         public UnityAction<MapId> ButtonEvent;
 
         void Awake()
         {
             SetStageSelectView();
+            SetTotalClearStarNumText(DataManager.Instance.GetTotalClearStarNum());
+            SetTotalStageStarNumText(DataManager.Instance.GetTotalStageNum() * 3);
             if (Debug.isDebugBuild == false) deleteDataButton.SetActive(false);
         }
 
@@ -33,6 +38,16 @@ namespace Scenes.TitleScene
                 CreatePrefab(mapId.FileName, clearData.GetStar, canChallengeStage);
                 if (clearData.GetStar == 0) canChallengeStage = false;
             }
+        }
+
+        public void SetTotalClearStarNumText(int totalClearStarNum)
+        {
+            totalClearStarNumText.text = totalClearStarNum.ToString();
+        }
+
+        public void SetTotalStageStarNumText(int totalStageStarNum)
+        {
+            totalStageStarNumText.text = "/ " + totalStageStarNum.ToString();
         }
 
         private void CreatePrefab(string fileName, int getStar, bool canChallengeStage)

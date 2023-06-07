@@ -74,6 +74,48 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Stage/19.unity
     guid: 450c228c3ea7748aba2fdefac5b3babe
+  - enabled: 1
+    path: Assets/Scenes/Stage/20.unity
+    guid: 1100dfa96c3264385a29a67a12a2ce7b
+  - enabled: 1
+    path: Assets/Scenes/Stage/21.unity
+    guid: 543cf83e1b7dc457e9fd78c787825719
+  - enabled: 1
+    path: Assets/Scenes/Stage/22.unity
+    guid: 27678d93d05c84a10a6b5ef786a456c8
+  - enabled: 1
+    path: Assets/Scenes/Stage/23.unity
+    guid: 11d506e4a25e74c8cb3c9065269107b6
+  - enabled: 1
+    path: Assets/Scenes/Stage/24.unity
+    guid: 826cfa28e49b44376a99ecddb9749c96
+  - enabled: 1
+    path: Assets/Scenes/Stage/25.unity
+    guid: 59297b3342b304254a9adf72b2fe3f46
+  - enabled: 1
+    path: Assets/Scenes/Stage/26.unity
+    guid: e3ba6bfd8cf59487fa8bb3fcc0f371af
+  - enabled: 1
+    path: Assets/Scenes/Stage/27.unity
+    guid: 2355a951ebf4f4fd6a74380a327b717c
+  - enabled: 1
+    path: Assets/Scenes/Stage/28.unity
+    guid: 89213d8f5ffce4b6d87a14c1a58739e5
+  - enabled: 1
+    path: Assets/Scenes/Stage/29.unity
+    guid: 27c2e973d1aa8485688bfaf3301b91e9
+  - enabled: 1
+    path: Assets/Scenes/Stage/30.unity
+    guid: 3d48c40656cca48599cf156ce4736cea
+  - enabled: 1
+    path: Assets/Scenes/Stage/31.unity
+    guid: 7f9058c67b7034b65ad80c546a14f008
+  - enabled: 1
+    path: Assets/Scenes/Stage/32.unity
+    guid: a733b40a0090d495c9fca664c32443b5
+  - enabled: 1
+    path: Assets/Scenes/Stage/33.unity
+    guid: b1ce722b5641c425f858e9b90ce7fd6d
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 83c3291ac25684fc6afa06f5381b8dc7,
       type: 2}
