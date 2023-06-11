@@ -99,6 +99,9 @@ namespace Manager
 
         public bool ExistNextGame(MapId mapId)
         {
+            // 最終ステージは出現させない
+            if (mapId.FileName == "33") return false;
+
             MapId id = GetNextStage(mapId);
             return id != null;
         }
