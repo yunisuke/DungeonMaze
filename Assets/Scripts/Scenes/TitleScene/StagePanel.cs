@@ -11,11 +11,13 @@ namespace Scenes.TitleScene
     {
         [SerializeField] private StageButton buttonPrefab;
         [SerializeField] private RectTransform buttonContainer;
-        [SerializeField] private GameObject deleteDataButton;
         [SerializeField] private TextMeshProUGUI totalClearStarNumText;
         [SerializeField] private TextMeshProUGUI totalStageStarNumText;
 
         public UnityAction<MapId> ButtonEvent;
+
+        [Header("Debug")]
+        [SerializeField] private GameObject deleteDataButton;
 
         void Awake()
         {
