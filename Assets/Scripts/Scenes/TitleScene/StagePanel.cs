@@ -24,7 +24,7 @@ namespace Scenes.TitleScene
             SetStageSelectView();
             SetTotalClearStarNumText(DataManager.Instance.GetTotalClearStarNum());
             SetTotalStageStarNumText(DataManager.Instance.GetTotalStageNum() * 3);
-            if (Debug.isDebugBuild == false) deleteDataButton.SetActive(false);
+            deleteDataButton.SetActive(Debug.isDebugBuild);
         }
 
         public void SetStageSelectView()
